@@ -37,11 +37,38 @@
 
 * **Tell all the Android application components.** - [Learn from here](https://developer.android.com/guide/components/fundamentals.html#Components)
 
-* **What is the project structure of an Android Application?** - [Learn from here](https://developer.android.com/studio/projects)
+    The Android application components are:
+
+    - __Activities__: This is the entry point for interacting with the user and it also facilitates some key interactions between the system and the app.
+    - __Services__: Is a general-purpose entry point for keeping an app running in the background. It is a component that runs in the background to perform long-running operations. It does not provide a UI.
+    - __Broadcast Receivers__: Is a component that enables the system to deliver events to the app outside of a regular user flow, thus allowing the app to respond to system-wide broadcast events. This component is mainly a gateway to other components and is intended to do a very minimal amount of work.
+    - __Content Providers__: Is a component that manages a shared st of app data that you can store in the file system, in a SQLite database, on the web, or on any other persistent storage location that your app can access. Content providers are useful for reading and writing data that is private to your app and not shared, however, they can allow other apps to (if allowed) query or modify the data.
 
 * **What is `Context`? How is it used?** - [Learn from here](https://blog.mindorks.com/understanding-context-in-android-application-330913e32514)
 
+    Context is:
+
+    - It is the context of the current state of the application.
+    - It can be used to get information regarding the activity and application.
+    - It can be used to get access to resources, databases, shared preferences and more.
+    - Both the Activity and Application classes extend the Context class.
+
+    Two types of context are:
+
+    - Application Context: is an instance of the Application we are running in and is tied to the lifecycle of the application.
+    - Activity Context: is an instance of the Activity we are running in and is tied to the lifecycle of the activity.
+
+
 * **What is `AndroidManifest.xml`?** - [Learn from here](https://developer.android.com/guide/topics/manifest/manifest-intro)
+
+    AndroidManifest.xml (App Manifest) is a file that describes essential information about your app to the Android build tools, the Android operating system, and Google Play. 
+
+    Among many things, the manifest file is required to declare the following:
+
+    - The app's package name.
+    - The components of the app (activities, services, broadcast receivers, and content providers).
+    - The permissions that the app needs.
+    - The hardware and software features the app requires.
 
 * **What is `Application` class?**
     - The Application class in Android is the base class within an Android app that contains all other components such as activities and services. The Application class, or any subclass of the Application class, is instantiated before any other class when the process for your application/package is created.
@@ -50,21 +77,64 @@
 
 * **What is `Activity` and its lifecycle?** - [Learn from here](https://www.youtube.com/watch?v=RiFui-i-s-o)
 
+    This is the entry point for interacting with the user and it also facilitates some key interactions between the system and the app.
+
+    The lifecycle is:
+
+    - onCreate: called when activity is first created.
+    - onStart: called when activity is becoming visible to the user.
+    - onResume: called when activity will start interacting with the user.
+    - onPause: called when activity is not visible to the user.
+    - onStop: called when activity is no longer visible to the user.
+    - onRestart: called after your activity is stopped, prior to start.
+    - onDestroy: called before the activity is destroyed.
+
 * **What is the difference between onCreate() and onStart()** - [Learn from here](https://www.youtube.com/watch?v=RiFui-i-s-o)
+
+    As long as your device does not kill the activity (for example due to low system resources) then any time you leave your app and go back, `onStart()` is called. If however the application process is killed, then when you return `onCreate()` will be called again, because all of your resources will have been released.
+
 
 * **When only onDestroy is called for an activity without onPause() and onStop()?** - [Learn from here](https://www.youtube.com/watch?v=QSxcLnZ1-RU)
 
+    `onPause()` and `onStop()` will not be invoked if `finish()` is called from within the `onCreate()` method. This might occur, for example, if you detect an error during `onCreate()` and call `finish()` as a result. In such a case, though, any cleanup you expected to be done in `onPause()` and `onStop()` will not be executed.
+
 * **Why do we need to call setContentView() in onCreate() of Activity class?** - [Learn from here](https://www.youtube.com/watch?v=zeYK8JdMOi8)
+
+    As `onCreate()` of an Activity is called only once, this is the point where most initialization should go such as calling `setContentView()`. It is inefficient to set the content in `onResume()` or `onStart()` (which are called multiple times) as the `setContentView()` is a heavy operation.
+
 
 * **What is onSavedInstanceState() and onRestoreInstanceState() in activity?**
     - onSavedInstanceState() - This method is used to store data before pausing the activity.
     - onRestoreInstanceState() - This method is used to recover the saved state of an activity when the activity is recreated after destruction. So, the onRestoreInstanceState() receive the bundle that contains the instance state information.
 
+    These are usually used to restore the state of the UI for example when doing a configuration change.
+
 * **What is `Fragment` and its lifecycle.** - [Learn from here](https://blog.mindorks.com/android-fragments-and-its-lifecycle)
+
+    Fragments are like child activities and provide us with modularity and adaptability. They allow us to use them as an entire screen or as different components of a screen or activity, each with their own functions. Fragments take on their Activity's lifecycle.
+
+    The lifecycle is:
+
+    - onAttach: called first when the fragment is attached to an activity (host).
+    - onCreate: called when the fragment instance is attached and initializes.
+    - onCreateView(): called when it's time for the fragment to draw it's UI. However, a fragment does not need to provide a UI.
+    - onActivityCreated(): called when the host Activity completes its onCreate() method.
+    - onStart: called when the fragment is becoming visible to the user.
+    - onResume: called when the fragment is visible and allows user interaction.
+    - onPause: called when the fragment is about to go off screen and will not allow user interaction.
+    - onStop: called when the fragment is no longer visible.
+    - onDestroyView(): called when the view and related resources created in onCreateView() are removed and destroyed. 
+    - onDestroy: called when the fragment does its final clean up.
+    - onDetach(): called when the fragment is detached from its host activity.
+
 
 * **What are "launch modes"?** - [Learn from here](https://blog.mindorks.com/android-activity-launchmode-explained-cbc6cf996802)
 
+    Launch modes allow you to define how a new instance of an activity is associated with the current task. These can be defined using the manifest file or by using intent flags (when calling `startActivity()`)
+
 * **What is the difference between a `Fragment` and an `Activity`? Explain the relationship between the two.** - [Learn from here](https://stackoverflow.com/questions/10478233/why-fragments-and-when-to-use-fragments-instead-of-activities)
+
+    A fragment lives inside an activity, while an activity lives by itself.
 
 * **When should you use a Fragment rather than an Activity?**
     - When you have some UI components to be used across various activities
@@ -76,9 +146,19 @@
 
 * **What is the difference between adding/replacing fragment in backstack?** - [Learn from here](https://stackoverflow.com/questions/24466302/basic-difference-between-add-and-replace-method-of-fragment/24466345)
 
+    The important difference is:
+
+    - `replace` removes the existing fragment and adds a new fragment.
+    - `add` retains the existing fragments and adds a new fragment that means existing fragment will be active and they wont be in 'paused' state hence when a back button is pressed onCreateView() is not called for the existing fragment(the fragment which was there before new fragment was added).
+
 * **Why is it recommended to use only the default constructor to create a `Fragment`?** - [Learn from here](https://www.youtube.com/watch?v=9EdvcycKP9A)
 
+    It is used in the case when device has to restore the state of a fragment. No data will be passed and a default fragment will be created and then the state will be restored. Since the system has no way to know what you passed in your constructor or your newInstance, default constructor will be used and saved bundle should be passed via onCreate after the fragment is actually instantiated with the default constructor.
+
 * **How would you communicate between two Fragments?** - [Learn from here](https://blog.mindorks.com/how-to-communicate-between-fragments)
+
+    - using a shared ViewModel
+    - using an Interface; by instantiating the interface in the first fragment then implementing the interface in your Activity and calling the action of the second fragment when an interface method is invoked.
 
 * **What is retained `Fragment`?**
     - By default, Fragments are destroyed and recreated along with their parent Activity’s when a configuration change occurs. Calling setRetainInstance(true) allows us to bypass this destroy-and-recreate cycle, signaling the system to retain the current instance of the fragment when the activity is recreated.
@@ -87,9 +167,21 @@
 
 * **What is `View` in Android?** - [Learn from here](https://blog.mindorks.com/android-user-interface-view-components)
 
+    A View is a superclass for all the UI components.
+
+    The view is the component which Android provides us to design the layouts of the app. So, we can understand view as a rectangular area which is going to contain some element inside it.
+
 * **Difference between `View.GONE` and `View.INVISIBLE`?** - [Learn from here](https://stackoverflow.com/questions/11556607/android-difference-between-invisible-and-gone)
 
+    - `View.INVISIBLE`: This view is invisible, but it still takes up space for layout purposes.
+    - `View.GONE`: This view is invisible, and it doesn't take any space for layout purposes.
+
 * **Can you a create custom view? How?** - [Learn from here](https://blog.mindorks.com/create-your-own-custom-view)
+
+We use custom views to make the UI component re-usable and to add new interaction which is not provided by the Android ecosystem.
+
+- Custom Views: Where we draw everything
+- Custom View Groups: Where we use existing widgets to form an inflatable xml file
 
 * **What are ViewGroups and how they are different from the Views?**
     - View: View objects are the basic building blocks of User Interface(UI) elements in Android. View is a simple rectangle box which responds to the user’s actions. Examples are EditText, Button, CheckBox etc. View refers to the android.view.View class, which is the base class of all UI classes.
@@ -101,9 +193,16 @@
 
 * **Relative Layout vs Linear Layout.** - [Learn from here](https://blog.mindorks.com/android-layout-relative-linear-frame)
 
+    - Relative means concerning another, or we can understand this as a relative to one another. In this layout, all the components are arranged concerning with each other. 
+    - Linear means in a line, either horizontal or vertical. As in all the elements inside the linear layout get arranged linearly, one after the other. If you are using horizontal orientation, then all the views inside the LinearLayout will be arranged horizontally one after the other.
+
 * **Tell about Constraint Layout** - [Learn from here](https://blog.mindorks.com/using-constraint-layout-in-android-531e68019cd)
 
+    ConstraintLayout combines a simple, expressive and flexible layout system with the powerful features built into the Android Studio Designer tool. It makes it easier to create responsive user interface layouts that adapt automatically to different screen sizes and changing device orientations.
+
 * **Do you know what is the view tree? How can you optimize its depth?** - [Learn from here](https://developer.android.com/reference/android/view/ViewTreeObserver)
+
+    A view tree observer is used to register listeners that can be notified of global changes in the view tree. Such global events include, but are not limited to, layout of the whole tree, beginning of the drawing pass, touch mode change, etc.
 
 * **How does the Touch Control and Events work in Android?** - [Learn from here](https://blog.mindorks.com/touch-control-and-events-in-android) and [here](https://www.youtube.com/watch?v=tKeYr7iV5xE)
 
@@ -111,11 +210,27 @@
 
 * **What is the difference between `ListView` and `RecyclerView`?** - [Learn from here](https://stackoverflow.com/questions/26728651/recyclerview-vs-listview)
 
+    RecyclerView is better and more efficient as it:
+
+    - Reuses cells while scrolling up/down by forcing implementation of a ViewHolder.
+    - Decouples list from its container - so you can put list items easily at run time in the different containers (linearLayout, gridLayout) with setting LayoutManager.
+
+    RecyclerView is a more flexible control for handling "list data" that follows patterns of delegation of concerns and leaves for itself only one task - recycling items.
+
 * **How does RecyclerView work internally?** - [Learn from here](https://blog.mindorks.com/how-does-recyclerview-work-internally) and [here](https://www.youtube.com/watch?v=60IYWdnHsZI)
 
 * **What is the ViewHolder pattern? Why should we use it?** - [Learn from here](https://stackoverflow.com/questions/21501316/what-is-the-benefit-of-viewholder-pattern-in-android)
 
+    ViewHolder design pattern is used to speed up rendering of your RecyclerView as `findViewById` is quite an expensive call (it does DOM parsing) when used each time a list item is rendered because it must traverse your layout hierarchy and possibly instantiate objects. Since lists can redraw its items quite frequently during scrolling such overhead might be substantial.
+
 * **RecyclerView Optimization - Scrolling Performance Improvement** - [Learn from here](https://blog.mindorks.com/recyclerview-optimization)
+
+    Some ways to optimize:
+    - Use an image loading library.
+    - Set fixed width and heights for dynamically loaded content.
+    - Do less in `onBindViewHolder()`
+    - Avoid deeply nested item views.
+    - Use `setHasFixedSize()` if the height of all items is equal.
 
 * **What is `SnapHelper`?** - [Learn from here](https://blog.mindorks.com/using-snaphelper-in-recyclerview-fc616b6833e8)
 
@@ -123,53 +238,119 @@
 
 * **What is `Dialog` in Android?** - [Learn from here](https://developer.android.com/guide/topics/ui/dialogs)
 
+    A dialog is a small window that prompts the user to make a decision or enter additional information. A dialog does not fill the screen and is normally used for modal events that require users to take an action before they can proceed.
+
 * **What is `Toast` in Android?** - [Learn from here](https://developer.android.com/guide/topics/ui/notifiers/toasts)
 
+    A toast provides simple feedback about an operation in a small popup. It only fills the amount of space required for the message and the current activity remains visible and interactive. Toasts automatically disappear after a timeout.
+
 * **What the difference between `Dialog` and `Dialog Fragment`?** - [Learn from here](https://stackoverflow.com/questions/7977392/android-dialogfragment-vs-dialog)
+
+    Use Dialog for simple yes or no dialogs.
+
+    Use a DialogFragment when you need more complex views in which you need get hold of the lifecycle such as onCreate, request permissions, any life cycle override. Thus you separate the permissions and any other code the dialog needs to operate without having to communicate with the calling activity.
 
 #### Intents and Broadcasting
 
 * **What is `Intent`?** - [Learn from here](https://blog.mindorks.com/what-are-intents-in-android)
 
+    An Intent is a messaging object you can use to request an action from another app component.
+
 * **What is an Implicit `Intent`?** - [Learn from here](https://blog.mindorks.com/what-are-intents-in-android)
+
+    Implicit Intents don't need to specify the fully-qualified address. All you need to do is just specify the action that is to be performed by an Intent. By using the Implicit Intents you can communicate between various applications present on the mobile device (such as Share sheet).
         
 * **What is an Explicit `Intent`?** - [Learn from here](https://blog.mindorks.com/what-are-intents-in-android)
 
+    Explicit Intents are used to communicate with a particular component of the same application.
+
 * **What is a `BroadcastReceiver`?** - [Learn from here](https://developer.android.com/guide/components/broadcasts)
+
+    Android apps can send or receive broadcast messages from the Android system and other Android apps, similar to the publish-subscribe design pattern. These broadcasts are sent when an event of interest occurs.
+
+    Apps can register to receive specific broadcasts. When a broadcast is sent, the system automatically routes broadcasts to apps that have subscribed to receive that particular type of broadcast.
 
 * **What is a `LocalBroadcastManager`?** - [Learn from here](https://blog.mindorks.com/using-localbroadcastmanager-in-android)
 
+    LocalBroadcastManager is used to register and send a broadcast of intents to local objects in your process. The broadcasted data will be contained within your app and cannot be accessed by other apps.
+
 * **What is the function of an `IntentFilter`?** - [Learn from here](https://developer.android.com/reference/android/content/IntentFilter)
 
+    An intent filter is an expression in an app's manifest file that specifies the type of intents that the component would like to receive.
+
+    When you create an implicit intent, the Android system finds the appropriate component to start by comparing the contents of the intent to the intent filters declared in the manifest file of other apps on the device. If the intent matches an intent filter, the system starts that component and delivers it the Intent object.
+
 * **What is a Sticky `Intent`?**
-    - Sticky Intents allows communication between a function and a service. sendStickyBroadcast() performs a sendBroadcast(Intent) known as sticky, i.e. the Intent you are sending stays around after the broadcast is complete, so that others can quickly retrieve that data through the return value of registerReceiver(BroadcastReceiver, IntentFilter). For example, if you take an intent for ACTION_BATTERY_CHANGED to get battery change events: When you call registerReceiver() for that action — even with a null BroadcastReceiver — you get the Intent that was last Broadcast for that action. Hence, you can use this to find the state of the battery without necessarily registering for all future state changes in the battery.
+    - Sticky Intents allows communication between a function and a service. `sendStickyBroadcast()` performs a sendBroadcast(Intent) known as sticky, i.e. the Intent you are sending stays around after the broadcast is complete, so that others can quickly retrieve that data through the return value of `registerReceiver(BroadcastReceiver, IntentFilter)`. For example, if you take an intent for `ACTION_BATTERY_CHANGED` to get battery change events: When you call `registerReceiver()` for that action — even with a null BroadcastReceiver — you get the Intent that was last Broadcast for that action. Hence, you can use this to find the state of the battery without necessarily registering for all future state changes in the battery.
 
 * **Describe how broadcasts and intents work to be able to pass messages around your app?** - [Learn from here](https://stackoverflow.com/questions/7276537/using-a-broadcast-intent-broadcast-receiver-to-send-messages-from-a-service-to-a)
 
+    An intent can be broadcasted and a BroadcastReceiver can be used to intercept the broadcasted intent. Think of this as similar to Observer pattern and an Event Bus.
+
 * **What is a `PendingIntent`?**
-    - If you want someone to perform any Intent operation at future point of time on behalf of you, then we will use Pending Intent.
+    - If you want someone to perform any Intent operation at future point of time on behalf of you, then Pending Intent is used.
 
 * **What are the different types of Broadcasts?** - [Learn from here](https://developer.android.com/guide/components/broadcasts)
 
 #### Services
 
-* **What is `Serivce`?** - [Learn from here](https://developer.android.com/guide/components/services)
+* **What is `Service`?** - [Learn from here](https://developer.android.com/guide/components/services)
+
+    A Service is an application component that can perform long-running operations in the background. It does not provide a user interface. Once started, a service might continue running for some time, even after the user switches to another application. Additionally, a component can bind to a service to interact with it and even perform interprocess communication (IPC). For example, a service can handle network transactions, play music, perform file I/O, or interact with a content provider, all from the background.
+
+    There are three ways of using Service:
+
+    - A foreground service is a Service that will let the user know about what is happening in the background.
+    - A background service will not inform the user of what is happening in the background.
+    - A Bound Service is used when one or more than one application component binds the Service by using the `bindService()` method. If the applications unbind the Service, then the Service will be destroyed.
 
 * **`Service` vs `IntentService`.** - [Learn from here](https://blog.mindorks.com/service-vs-intentservice-in-android)
 
+    A Service is an application component representing either an application's desire to perform a longer-running operation while not interacting with the user or to supply functionality for other applications to use.
+
+    IntentService is a base class for IntentService Services that handle asynchronous requests (expressed as Intents) on demand. Clients send requests through startService(Intent) calls; the service is started as needed, handles each Intent in turn using a worker thread, and stops itself when it runs out of work.
+
 * **What is a `JobScheduler`?** - [Learn from here](https://developer.android.com/reference/android/app/job/JobScheduler)
+
+    This is an API for scheduling various types of jobs against the framework that will be executed in your application's own process.
+
+    The framework will be intelligent about when it executes jobs, and attempt to batch and defer them as much as possible. Typically if you don't specify a deadline on a job, it can be run at any moment depending on the current state of the JobScheduler's internal queue.
 
 #### Inter-process Communication
 
 * **How can two distinct Android apps interact?** - [Learn from here](https://developer.android.com/training/basics/intents)
 
+    An Intent is used to perform some basic interactions with other apps, such as start another app, receive a result from that app, and make your app able to respond to intents from other apps.
+
+    An Intent can be explicit in order to start a specific component (a specific Activity instance) or implicit in order to start any component that can handle the intended action (such as "capture a photo").
+
 * **Is it possible to run an Android app in multiple processes? How?** - [Learn from here](https://stackoverflow.com/questions/6567768/how-can-an-android-application-have-more-than-one-process)
+
+    You can specify android:process=":remote" in your manifest to have an activity/service run in a seperate process.
+
+    The "remote" is just the name of the remote process, and you can call it whatever you want. If you want several activities/services to run in the same process, just give it the same name.
 
 * **What is AIDL? Enumerate the steps in creating a bounded service through AIDL.** - [Learn from here](https://developer.android.com/guide/components/aidl)
 
+    The Android Interface Definition Language (AIDL) is similar to other IDLs you might have worked with. It allows you to define the programming interface that both the client and service agree upon in order to communicate with each other using interprocess communication (IPC). On Android, one process cannot normally access the memory of another process. So to talk, they need to decompose their objects into primitives that the operating system can understand, and marshall the objects across that boundary for you. The code to do that marshalling is tedious to write, so Android handles it for you with AIDL.
+
 * **What can you use for background processing in Android?** - [Learn from here](https://developer.android.com/guide/background)
 
+    Background tasks fall into one of the following main categories:
+
+    - Immediate
+    - Deferred
+    - Exact
+
+    Immediate tasks can be done using Kotlin `coroutines`. For tasks that should be executed immediately and need continued processing, even if the user puts the app in the background or the device restarts then a `WorkManager` should be used. For deferred tasks, `WorkManager` should also be used to schedule them.
+
+    A task that needs to be executed at an exact point in time can use `AlarmManager`.
+
 * **What is a `ContentProvider` and what is it typically used for?** - [Learn from here](https://developer.android.com/guide/topics/providers/content-provider-basics) and [here](https://developer.android.com/guide/topics/providers/content-providers)
+
+    A content provider manages access to a central repository of data.
+
+    Typically you work with content providers in one of two scenarios; you may want to implement code to access an existing content provider in another application, or you may want to create a new content provider in your application to share data with other applications.
 
 #### Long-running Operations
 
@@ -177,15 +358,42 @@
 
 * **Why should you avoid to run non-ui code on the main thread?** - [Learn from here](https://developer.android.com/training/multiple-threads/communicate-ui)
 
+    In order not to lock up the UI and keep performance and framerate of your app high. 
+    
+    In general, any task that takes more than a few milliseconds should be delegated to a background thread. Common long-running tasks include things like decoding a bitmap, accessing storage, working on a machine learning (ML) model, or performing network requests.
+
 * **What is ANR? How can the ANR be prevented?** - [Learn from here](https://developer.android.com/topic/performance/vitals/anr.html)
+
+    When the UI thread of an Android app is blocked for too long, an "Application Not Responding" (ANR) error is triggered.
+
+    An ANR will be triggered for your app when one of the following conditions occur:
+
+    - While your activity is in the foreground, your app has not responded to an input event or BroadcastReceiver (such as key press or screen touch events) within 5 seconds.
+    - While you do not have an activity in the foreground, your BroadcastReceiver hasn't finished executing within a considerable amount of time.
 
 * **What is an `AsyncTask`?** - [Learn from here](https://www.youtube.com/watch?v=ZZ-6nGbfVdA)
 
+    AsyncTask allows you to perform background operations on a worker thread and publish results on the UI thread without needing to directly manipulate threads or handlers.
+
 * **What are the problems in AsyncTask?** - [Learn from here](https://www.youtube.com/watch?v=ZZ-6nGbfVdA)
+
+    - When the Activity is restarted, your AsyncTask’s reference to the Activity is invalid, so onPostExecute() will have no effect on the new Activity.
+    - A common usage of AsyncTask is to declare it as an anonymous inner class of the host Activity, which creates an implicit reference to the Activity and an even bigger memory leak.
+    - The only way that an AsyncTask finishes early is if it is canceled via `AsyncTask.cancel()`. This means that you have to manage the cancellation of AsyncTasks yourself.
+    - It’s up to you to check whether the AsyncTask has been canceled so that you can halt your operation.
 
 * **When would you use java thread instead of an AsyncTask?** - [Learn from here](https://stackoverflow.com/questions/18480206/asynctask-vs-thread-in-android)
 
-* **What is a `Loader`? (Deprecated)** - [Learn from here](https://developer.android.com/guide/components/loaders)
+    Use AsyncTask for:
+
+    - Simple network operations which do not require downloading a lot of data
+    - Disk-bound tasks that might take more than a few milliseconds
+    
+    Use Java threads for:
+
+    - Network operations which involve moderate to large amounts of data (either uploading or downloading)
+    - High-CPU tasks which need to be run in the background
+    - Any task where you want to control the CPU usage relative to the GUI thread
 
 * **What is the relationship between the life cycle of an `AsyncTask` and an `Activity`? What problems can this result in? How can these problems be avoided?**
     - An AsyncTask is not tied to the life cycle of the Activity that contains it. So, for example, if you start an AsyncTask inside an Activity and the user rotates the device, the Activity will be destroyed (and a new Activity instance will be created) but the AsyncTask will not die but instead goes on living until it completes.
@@ -200,9 +408,25 @@
 
 * **Explain `Looper`, `Handler` and `HandlerThread`.** - [Learn from here](https://blog.mindorks.com/android-core-looper-handler-and-handlerthread-bd54d69fe91a) and [from video](https://www.youtube.com/watch?v=rfLMwbOKLRk&list=PL6nth5sRD25hVezlyqlBO9dafKMc5fAU2)
 
+    - MessageQueue: It is a low-level class holding the list of messages to be dispatched by a Looper. Messages are not added directly to a MessageQueue, but rather through Handler objects associated with the Looper.
+    - Looper: It loops over a MessageQueue which contains the messages to be dispatched. The actual task of managing the queue is done by the Handler which is responsible for handling (adding, removing, dispatching) messages in the message queue.
+    - Handler: It allows you to send and process Message and Runnable objects associated with a thread's MessageQueue. Each Handler instance is associated with a single thread and that thread's message queue.
+
 * **How does the threading work in Android?** - [Learn from here](https://www.youtube.com/watch?v=zfDYK-xB1Uo)
 
+    When an application is launched, the system creates a thread of execution for the application, called "main." This thread is very important because it is in charge of dispatching events to the appropriate user interface widgets, including drawing events.
+
+    Because of the single threaded model described above, it's vital to the responsiveness of your application's UI that you do not block the UI thread. If you have operations to perform that are not instantaneous, you should make sure to do them in separate threads ("background" or "worker" threads).
+
+    However, note that you cannot update the UI from any thread other than the UI thread or the "main" thread.
+
 * **Android Memory Leak and Garbage Collection** - [Learn from here](https://www.youtube.com/watch?v=zCSSFRRIreo)
+
+    A memory leak happens when your code allocates memory for an object, but never deallocates it. This can happen for many reasons.
+
+    No matter the cause, when a memory leak occurs the Garbage Collector thinks an object is still needed because it’s still referenced by other objects. But those references should have cleared.
+
+    If the app continues to leak memory, it’ll eventually run out of it and crash.
 
 #### Working With Multimedia Content
 
@@ -213,23 +437,46 @@
 
 * **Tell about the `Bitmap` pool.** - [Learn from here](https://blog.mindorks.com/how-to-use-bitmap-pool-in-android-56c71a55533c)
 
+    Bitmap pooling is a simple technique (though fairly complex to implement), that aims to reuse bitmaps instead of creating new ones every time. To put it simply, when you need a bitmap, you check a bitmap stack to see if there are any bitmaps available. If there are not bitmaps available you create a new bitmap otherwise you pop a bitmap from the stack and reuse it. Then when you are done with the bitmap, you can put it on a stack.
+
 * **How to play sounds in Android?** - [Learn from here](https://blog.mindorks.com/using-mediaplayer-to-play-an-audio-file-in-android)
 
-* **How image compression is preformed?** - [Learn from here](https://blog.mindorks.com/understanding-image-compression-in-android)
+    You can use ExoPlayer or MediaPlayer to Play Audio Files in Android applications.
 
 #### Data Saving
 
 * **How to persist data in an Android app?** - [Learn from here](https://blog.mindorks.com/android-shared-preferences-in-kotlin)
 
+    You can use SharedPreferences or a dedicated SQLite database with Room.
+
 * **What is ORM? How does it work?** - [Learn from here](https://www.youtube.com/watch?v=9OHzXUo3Ymk)
+
+    Object-Relational Mapping (ORM) is a technique that lets you query and manipulate data from a database using an object-oriented paradigm. When talking about ORM, most people are referring to a library that implements the Object-Relational Mapping technique, hence the phrase "an ORM".
+
+    An ORM database is something like Room or Realm.
 
 * **How would you preserve `Activity` state during a screen rotation?** - [Learn from here](https://stackoverflow.com/questions/3915952/how-to-save-state-during-orientation-change-in-android-if-the-state-is-made-of-m)
 
+    For simple/small data, you can use `onSaveInstanceState()` and restore the data using the bundle.
+
+    On newer versions of Android and with the compatibility library, retained fragments are usually the best way to handle keeping expensive-to-recreate data alive across activity destruction/creation.
+
+    As well, the ViewModel class allows data to survive configuration changes such as screen rotations.
+
 * **What are different ways to store data in your Android app?** - [Learn from here](https://blog.mindorks.com/understanding-storage-system-to-store-data-in-android)
+
+    - Internal Storage
+    - External Storage
+    - Shared Preferences
+    - Database
 
 * **Explain Scoped Storage in Android.** - [Learn from here](https://blog.mindorks.com/understanding-the-scoped-storage-in-android)
 
+    - Scoped Storage was introduced in Android 10 and the idea behind it is to compartmentalize the storage into specified collections to limit the access to broad storage. 
+
 * **How to encrypt data in Android?** - [Learn from here](https://blog.mindorks.com/how-to-encrypt-data-safely-on-device-and-use-the-androidkeystore)
+
+    Use the JetPack Security Library or Tink Cryptography library as this stuff should not be manually implemented as its very easy to mess up the implementation. EncryptedSharedPreferences can also be used to store encrypt data.
 
 * **What is commit() and apply() in SharedPreferences?**
     - commit() returns a boolean value of success or failure immediately by writing data synchronously.
@@ -239,6 +486,8 @@
 
 * **What is a `Spannable`?** - [Learn from here](https://medium.com/androiddevelopers/underspanding-spans-1b91008b97e4)
 
+    Spans are powerful concepts that allow styling text at character or paragraph levels by providing access to components like TextPaint and Canvas.
+
 * **What is a `SpannableString`?**
    - A SpannableString has immutable text, but its span information is mutable. Use a SpannableString when your text doesn't need to be changed but the styling does. Spans are ranges over the text that include styling information like color, highlighting, italics, links, etc
 
@@ -246,37 +495,97 @@
 
 * **How to implement Dark mode in any application?** - [Learn from here](https://blog.mindorks.com/implementing-dark-mode-theme-in-android)
 
+    Update your AppTheme (styles.xml) to inherit from a theme that supports DayNight.
+
 * **How to generate dynamic colors based in image?** - [Learn from here](https://blog.mindorks.com/color-palette-in-android)
 
+    Use the Color Palette API.
+
 * **Explain about Density Independence Pixel** - [Learn from here](https://blog.mindorks.com/understanding-density-independent-pixel-sp-dp-dip-in-android)
+
+    The number of pixels that fit into an inch is referred to as pixel density.
 
 #### Memory Optimizations
 
 * **What is the `onTrimMemory()` method?** - [Learn from here](https://developer.android.com/topic/performance/memory)
 
+    The provided `onTrimMemory()` callback method allows your app to listen for memory related events when your app is in either the foreground or the background, and then release objects in response to app lifecycle or system events that indicate the system needs to reclaim memory.
+
 * **How does the OutOfMemory happens?** - [Learn from here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application)
 
+    There are various reasons that can lead to OutOfMemoryError in Android. Some of the common reason for Memory Leaks that results in OutOfMemoryError are:
+
+    - Loading large bitmaps 
+    - Use of Static view/context/activity
+    - Register and unregister listeners
+    - Non-Static inner class
+    - Wrong use of getContext() and getApplicationContext()
+
 * **How do you find memory leaks in Android applications?** - [Learn from here](https://blog.mindorks.com/practical-guide-to-solve-out-of-memory-error-in-android-application) and [here](https://mindorks.com/blog/detecting-and-fixing-memory-leaks-in-android)
+
+    You can use the memory profiler of Android Studio to find the classes responsible for OutOfMemoryError. Or you can use a library called LeakCanary.
 
 #### Battery Life Optimizations
 
 * **How to reduce battery usage in an android application?** - [Learn from here](https://blog.mindorks.com/battery-optimization-for-android-apps-f4ef6170ff70)
 
+    - Reduce network calls as much as you can by caching data and retrieve it from the cache when required.
+    - Avoid wake locks as much as possible.
+    - Use AlarmManager carefully.
+    - Batch the network calls to prevent the device from waking up frequently.
+    - Keep tabs on all background processes.
+    - Use GPS carefully.
+    - Use WorkManager for long-running async tasks.
+
 * **What is Doze? What about App Standby?** - [Learn from here](https://developer.android.com/training/monitoring-device-state/doze-standby)
 
+    - Doze reduces battery consumption by deferring background CPU and network activity for apps when the device is unused for long periods of time. 
+    -  App Standby defers background network activity for apps with which the user has not recently interacted.
+
 * **What is `overdraw`?** - [Learn from here](https://developer.android.com/topic/performance/rendering/overdraw.html)
+
+    An app may draw the same pixel more than once within a single frame, an event called __overdraw__. Overdraw is usually unnecessary, and best eliminated. It manifests itself as a performance problem by wasting GPU time to render pixels that don't contribute to what the user sees on the screen.
+
+    To help you determine if overdraw is affecting your app's performance you can use these tools: Debug GPU overdraw tool and Profile GPU rendering tool.
+
+    There are several strategies you can pursue to reduce or eliminate overdraw:
+
+    - Removing unneeded backgrounds in layouts.
+    - Flattening the view hierarchy.
+    - Reducing transparency.
+
 
 #### Supporting Different Screen Sizes
 
 * **How do you support different types of resolutions?** - [Learn from here](https://developer.android.com/training/multiscreen/screensizes)
 
+    - Use view dimensions that allow the layout to resize
+    - Create alternative UI layouts according to the screen configuration
+    - Provide bitmaps that can stretch with the views
+    - Use ConstraintLayout
+    - Avoid hard-coded layout sizes
+    - Create alternative layouts (landscape, portrait, tablets, etc.)
+
 #### Permissions
 
 * **What are the different protection levels in permission?** - [Learn from here](https://blog.mindorks.com/what-are-the-different-protection-levels-in-android-permission)
 
+    Following are the three protection levels of permissions in Android:
+
+    - Normal Permissions: These are automatically granted to the app as there is very little or no risk of user privacy exposure.
+    - Signature Permissions: The android system grants these permissions at the installation time but there is one condition. The app that is asking for some permission must be signed with the same signature as that of the app that defines the required permission.
+    - Dangerous Permissions: These are permissions that involve user data in some way. To use these permissions you have to explicitly ask the user for the permission before using it.
+
 #### Native Programming
 
 * **What is the NDK and why is it useful?** - [Learn from here](https://www.youtube.com/watch?v=iljxHVt7Arc) and [here](https://blog.mindorks.com/getting-started-with-android-ndk-android-tutorial) and [here](https://www.youtube.com/watch?v=iljxHVt7Arc)
+
+    The Native Development Kit (NDK) is a set of tools that allow you to leverage C and C++ code in your Android app. You can use it to build from your own source code or to take advantage of existing prebuilt libraries.
+
+    It can be useful in cases in which you need to:
+
+    - Get the extra performance out of a device for computationally intensive applications like games or physics simulations.
+    - Reuse your C or C++ libraries.
 
 * **What is renderscript?** - [Learn from here](https://blog.mindorks.com/comparing-android-ndk-and-renderscript-1a718c01f6fe)
 
@@ -284,31 +593,76 @@
 
 * **What is the Dalvik Virtual Machine?** - [Learn from here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
 
+    Dalvik is a Just In Time (JIT) compiler. By the term JIT, we mean to say that whenever you run your app in your mobile device then that part of your code that is needed for execution of your app will only be compiled at that moment and rest of the code will be compiled in the future when needed. 
+
 * **What is the difference JVM, DVM and ART?** - [Learn from here](https://android.jlelse.eu/closer-look-at-android-runtime-dvm-vs-art-1dc5240c3924)
 
 * **What are the differences between Dalvik and ART?** - [Learn from here](https://blog.mindorks.com/what-are-the-differences-between-dalvik-and-art)
 
+    ART or Android Runtime is an Android runtime that uses Ahead Of Time(AOT). By using AOT, what is does is it converts or compiles the whole High-level language code into Machine level code and at the time of installation of the app and not dynamically as the application runs(like in case of Dalvik).
+
 * **What is DEX?** - [Learn from here](https://developer.android.com/reference/dalvik/system/DexFile)
 
+    Compiled Android application code file on Dalvik VM.
+
+    Android programs are compiled into .dex (Dalvik Executable) files, which are in turn zipped into a single .apk file on the device. .dex files can be created automatically by Android, by translating the compiled applications written in the Java programming language.
+
 * **Can you manually call the Garbage collector?** - [Learn from here](https://stackoverflow.com/questions/15632734/can-we-call-the-garbage-collector-explicitly)
+
+    You can call Garbage collector using `System.gc()` but this does not mean that it'll be executed immediately. The JVM decides when to execute it.
 
 #### Android Jetpack
 
 * **What is Android Jetpack and why to use this?** - [Learn from here](https://blog.mindorks.com/what-is-android-jetpack-and-why-should-we-use-it)
 
+    Android Jetpack is a collection of Android libraries meant to help and alleviate common problems when building Android apps. This suite of libraries is now considered the "modern" way to build Android apps.
+
 * **What are Android Architecture Components?** - [Learn from here](https://blog.mindorks.com/what-are-android-architecture-components)
+
+    Android architecture components are a collection of libraries that help us in the following:
+
+    - Build robust Android application.
+    - Build testable Android application.
+    - Build maintainable Android Apps.
+
+    Architecture components also help in managing our UI component lifecycle and handling data persistence.
 
 * **What is LiveData in Android?** - [Learn from here](https://blog.mindorks.com/understanding-livedata-in-android)
 
+    LiveData is an observable data holder class. Unlike a regular observable, LiveData is lifecycle-aware, meaning it respects the lifecycle of other app components, such as activities, fragments, or services. This awareness ensures LiveData only updates app component observers that are in an active lifecycle state.
+
+    - You can use LiveData with libraries like Room Persistent Library, Coroutines, etc.
+    - Once a data is modified/changed, the observers will be notified about the change
+    - But before notifying the observers, LiveData will check if the observer is live or not. If it is live, then the notification will be sent otherwise not. In this way, the crash due to stopped activities will be stopped.
+    - While using LiveData, you need not worry about unsubscribing any observers.
+    - If the inactive observer will be resumed in future, then the latest data will be sent to that observer.
+    - No need to worry about activity recreation due to screen rotation because only the updated data will be sent.
+
 * **How LiveData is different from ObservableField?** - [Learn from here](https://blog.mindorks.com/livedata-vs-observable-in-android)
+
+    - ObservableField <T> is not Lifecycle aware but LiveData is. That means LiveData will only update app component observers that are in an active lifecycle state and not which are inactive.
+    - We have to do manual handling of Lifecycle awareness in ObservableField
 
 * **What is the difference between setValue and postValue in LiveData?** - [Learn from here](https://blog.mindorks.com/livedata-setvalue-vs-postvalue-in-android)
 
+    Both `setValue` and `postValue` can be used in the same manner when working on the main thread.
+
+    If working in a background thread, then you can't use `setValue`. You have to use `postValue` here and the value will be changed immediately however the notification that is to be sent to observers will be scheduled to execute on the main thread via the event loop with the handler.
+
 * **How to share ViewModel between Fragments in Android?** - [Learn from here](https://blog.mindorks.com/shared-viewmodel-in-android-shared-between-fragments)
+
+    In both fragments, when you instantiate the `SharedViewModel` you must provide the same single activity as the owner. This is how to create a shared ViewModel.
 
 * **Explain Work Manager in Android.** - [Learn from here](https://blog.mindorks.com/integrating-work-manager-in-android)
 
+    Work Manager is a library that is part of Android Jetpack which makes it easy to schedule deferrable, asynchronous tasks that are expected to run even if the app exits or device restarts. Work Manager makes sure the scheduled task executes again.
+
 * **Use-cases of WorkManager in Android.** - [Learn from here](https://www.youtube.com/watch?v=4LTpYXFMnJw)
+
+    - run a task
+    - run a task periodically
+    - cancelling tasks
+    - listening to task results
 
 * **How ViewModel work internally?** - [Learn from here](https://blog.mindorks.com/android-viewmodels-under-the-hood)
 
@@ -318,13 +672,22 @@
 
 * **How do you troubleshoot a crashing application?** - [Learn from here](https://developer.android.com/topic/performance/vitals/crash)
 
+    - stack trace
+    - logcat
+    - debugging and profiling tools
+
 * **Explain Android notification system?** - [Learn from here](https://blog.mindorks.com/how-to-increase-push-notification-delivery-rate-in-android)
 
 * **What is the difference between Serializable and Parcelable? Which is the best approach in Android?** - [Learn from here](https://android.jlelse.eu/parcelable-vs-serializable-6a2556d51538)
 
+    - Serializable is a standard Java interface. It is not a part of the Android SDK. It’s simplicity is it’s beauty. Just by implementing this interface your POJO will be ready to jump from one Activity to another. Reflection is used during the process and lots of additional objects are created along the way. This can cause lot’s of garbage collection. The result is poor performance and battery drain.
+    - Parcelable is another interface. Despite it’s rival (Serializable in case you forgot), it is a part of the Android SDK. Now, Parcelable was specifically designed in such a way that there is no reflection when using it. That is because, we are being really explicit for the serialization process.
+
 * **What is AAPT?** - [Learn from here](https://developer.android.com/studio/command-line/aapt2)
 
 * **What is the best way to update the screen periodically?** - [Learn from here](https://stackoverflow.com/questions/5452394/best-way-to-perform-an-action-periodically-while-an-app-is-running-handler)
+
+    Using a handler to schedule a `Runnable` that does work.
 
 * **FlatBuffers vs JSON.** - [Learn from here](https://blog.mindorks.com/why-consider-flatbuffer-over-json-2e4aa8d4ed07)
 
@@ -341,6 +704,8 @@
 * **What is the support library? Why was it introduced?** - [Learn from here](https://developer.android.com/topic/libraries/support-library)
 
 * **What is Android Data Binding?** - [Learn from here](https://developer.android.com/topic/libraries/data-binding/index.html)
+
+    The Data Binding Library is a support library that allows you to bind UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
 
 * **How to check if Software keyboard is visible or not?** - [Learn from here](https://blog.mindorks.com/how-to-check-the-visibility-of-software-keyboard-in-android)
 
