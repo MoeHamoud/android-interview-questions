@@ -695,33 +695,66 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What are Annotations?** - [Learn from here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9), [Link](https://blog.mindorks.com/improve-your-android-coding-through-annotations-26b3273c137a), [and from video](https://www.youtube.com/watch?v=LEb9if2HHSw)
 
+    Annotations are essentially just information about your code.
+
+    For example, `@Override` annotation tells the compiler that this method is an overridden method (metadata about the method) and whether any such method exists in its parent class. Then it throws a compiler error (the method does not override a method from its super class).
+
 * **How to create custom Annotation?** - [Learn from here](https://blog.mindorks.com/creating-custom-annotations-in-android-a855c5b43ed9) and [here](https://www.youtube.com/watch?v=LEb9if2HHSw)
+
+    You create custom Annotations by creating an interface and marking it with `@interface`.
+
+    ```
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface Status {
+        public enum Priority {LOW, MEDIUM, HIGH}
+        Priority priority() default Priority.LOW;
+        String author() default “Amit”;
+        int completion() default 0;
+    }
+    ```
+
+    - `@Target` specifies where an annotation can be placed. 
+    - `@Retention` defines how long the annotation should be kept around.
 
 * **How to handle multi-touch in android?** - [Learn from here](https://developer.android.com/training/gestures/multi)
 
-* **How to implement XML namespaces?** - [Learn from here](https://developer.android.com/reference/javax/xml/namespace/NamespaceContext)
+    By overriding `onTouchEvent()`.
 
 * **What is the support library? Why was it introduced?** - [Learn from here](https://developer.android.com/topic/libraries/support-library)
+
+    The support library was created to provide newer features on earlier versions of Android or gracefully fall back to equivalent functionality. Rather than building code to handle earlier versions of the platform, you can leverage these libraries to provide that compatibility layer.
+
+    - Backward Compatibility for newer APIs
+    - Convenience and Helper Classes
+    - Debugging and Utilities
 
 * **What is Android Data Binding?** - [Learn from here](https://developer.android.com/topic/libraries/data-binding/index.html)
 
     The Data Binding Library is a support library that allows you to bind UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
 
-* **How to check if Software keyboard is visible or not?** - [Learn from here](https://blog.mindorks.com/how-to-check-the-visibility-of-software-keyboard-in-android)
-
-* **How to take screenshot in Android programmatically?** - [Learn from here](https://blog.mindorks.com/how-to-programmatically-take-a-screenshot-on-android)
-
 ### Android Libraries
 
 * **Explain OkHttp Interceptor** - [Learn from here](https://blog.mindorks.com/okhttp-interceptor-making-the-most-of-it)
 
+     Interceptors are a powerful mechanism that can monitor, rewrite, and retry API calls. So basically, when we do some API call, we can monitor the call or perform some tasks.
+
 * **OkHttp - HTTP Caching - How caching work in Android** - [Learn from here](https://www.youtube.com/watch?v=D6dQn6pUQD0)
 
+    It automatically parses the cache-related header from the server and stores the response into the cache dir. Next time, when we send the request, it will automatically append the corresponding header for us.
+
+    Ofcourse, you'd want your server to have the proper headers sent to you.
+
 * **Tell me something about RxJava.** - [Learn from here](https://blog.mindorks.com/a-complete-guide-to-learn-rxjava-b55c0cea3631)
+
+    RxJava is used for reactive programming. In reactive programming, the consumer reacts to the data as it comes in. Reactive programming allows for event changes to propagate to registered observers.
 
 * **How will you handle error in RxJava?** - [Learn from here](https://blog.mindorks.com/error-handling-in-rxjava)
 
 * **FlatMap Vs Map Operator** - [Learn from here](https://medium.com/mindorks/rxjava-operator-map-vs-flatmap-427c09678784)
+
+    - Map transforms the items emitted by an Observable by applying a function to each item.
+    - FlatMap transforms the items emitted by an Observable into Observables.
     
 * **When to use `Create` operator and when to use `fromCallable` operator of RxJava?** - [Learn from here](https://blog.mindorks.com/understanding-rxjava-create-and-fromcallable-operator)
     
@@ -730,10 +763,21 @@ We use custom views to make the UI component re-usable and to add new interactio
 * **How are Timer, Delay, and Interval operators used in RxJava?** - [Learn from here](https://blog.mindorks.com/understanding-rxjava-timer-delay-and-interval-operators)
 
 * **How to make two network calls in parallel using RxJava?** - [Learn from here](https://blog.mindorks.com/understanding-rxjava-zip-operator-with-example)
+
+    Using the Zip operator you can:
+    - Run all the tasks in parallel when Schedulers are correctly provided to each observable.
+    - Return the results of all the tasks in a single callback when all the tasks are completed.
     
 * **Tell the difference between Concat and Merge.** - [Learn from here](https://blog.mindorks.com/rxjava-operator-concat-vs-merge)
 
+    - Concat emits the emissions from two or more Observables without interleaving them. It will maintain the order of the observables while emitting the items. It means that it will emit all the items of the first observable and then it will emit all the items of the second observable and so on.
+    - Merge combines multiple Observables into one by merging their emissions. It will not maintain the order while emitting the items.
+
 * **Explain Subject in RxJava?** - [Learn from here](https://blog.mindorks.com/understanding-rxjava-subject-publish-replay-behavior-and-async-subject-224d663d452f)
+
+    A Subject is a sort of bridge or proxy that is available in some implementations of ReactiveX that acts both as an observer and as an Observable. Because it is an observer, it can subscribe to one or more Observables, and because it is an Observable, it can pass through the items it observes by re-emitting them, and it can also emit new items.
+
+    This is similar to a MediatorLiveData. 
 
 * **What are the types of Observables in RxJava?** - [Learn from here](https://blog.mindorks.com/understanding-types-of-observables-in-rxjava-6c3a2d0819c8)
 
@@ -743,15 +787,30 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **How The Android Image Loading Library Glide and Fresco Works?** - [Learn from here](https://blog.mindorks.com/how-the-android-image-loading-library-glide-and-fresco-works-962bc9d1cc40)
 
+    - Checks if the image with that URL key is available in the memory cache or not.
+    - If present in the memory cache, it just shows the bitmap by taking it from the memory cache.
+    - If not present in the memory cache, it checks in the disk cache.
+    - If present in the disk cache, it loads the bitmap from the disk, also puts it in the memory cache and load the bitmap into the view.
+    - If not present in the disk cache, it downloads the image from the network, puts it in the disk cache, also puts it in the memory cache and load the bitmap into the view.
+
 * **Difference between Schedulers.io() and Schedulers.computation() in RxJava.**
 
+    - Schedulers.computation() – This schedular can be used to perform CPU-intensive operations like processing huge data, bitmap processing etc., The number of threads created using this scheduler completely depends on number CPU cores available.
+    - Schedulers.io() – This is used to perform non-CPU-intensive operations like making network calls, reading disc/files, database operations, etc., This maintains a pool of threads.
+
 * **Why do we use the Dependency Injection Framework like Dagger in Android?** - [Learn from here](https://blog.mindorks.com/why-do-we-use-the-dependency-injection-framework-in-android)
+
+    Consider, that when we have to create a lot of objects which are dependent on many other objects in our project, it becomes tough when the project becomes bigger. With the code base increasing, we might need some good external support to manage it all. That is one of the use-cases for that we use a dependency framework.
 
 * **How does the Dagger work?** - [Learn from here](https://blog.mindorks.com/android-annotation-processing-tutorial-part-1-a-practical-approach) and [here]((https://www.youtube.com/watch?v=Grzqz-B3NWU))
 
 * **What is Component in Dagger?** - [Learn from here](https://www.youtube.com/watch?v=Grzqz-B3NWU)
 
+    Components are essentially the glue that holds everything together. They are a way of telling Dagger 2 what dependencies should be bundled together and made available to a given instance so they can be used. They provide a way for a class to request dependencies being injected through their @Inject annotation.
+
 * **What is Module in Dagger?** - [Learn from here](https://www.youtube.com/watch?v=Grzqz-B3NWU)
+
+    @Module annotated class defines a class that contributes to the dagger object graph.
 
 * **How does the custom scope work in Dagger?**
 
@@ -759,31 +818,130 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What is Multipart Request in Networking?** - [Learn from here](https://www.youtube.com/watch?v=p7SiNT0q1I8)
 
+    Multipart requests combine one or more sets of data into a single body, separated by boundaries. You typically use these requests for file uploads and for transferring data of several types in a single request (for example, a file along with a JSON object).
+
 * **What is Flow in Kotlin?** - [Learn from here](https://blog.mindorks.com/what-is-flow-in-kotlin-and-how-to-use-it-in-android-project)
+
+    Flow API in Kotlin is a better way to handle a stream of data asynchronously that executes sequentially. The code inside a flow builder does not run until the flow is collected (similar to RxJava observables).
 
 ### Android Architecture
 
 * **Describe the architecture of your last app.**
 
+    The architecture of my last app was influenced by Architecture Components and MVVM. 
+
+    The UI layer will contain a fragment as a screen, a ViewModel as the controller for the screen where calls from the fragment are routed through to the ViewModel to operate on. The ViewModel will have a reference to a data source such as a repository which will be used to fetch data from either local storage or network. When the data is retrieved by the repository the ViewModel can either observe or wait directly on the data using coroutines and when the data is received it can push that data to the screen/fragment using LiveData.
+
+    The repository may utilize it's own mapper or helper classes to handle some transformations. 
+
+    The repository will have a data source such as a DB that it can make calls to and an API service using Retrofit to handle any network requests that are required. 
+
+    Why are architectures important? They are important in order to provide clear data flow which will increase robustness, scalability, bug resistant, increase readability, easy to modify and increase productivity and provide a quality app. Using an architecture also creates natural separation of concerns.
+
 * **Describe MVP.** - [Learn from here](https://mindorks.com/course/android-mvp-introduction)
+
+    MVP is an architecture that provides code reusability and testability. MVP usually has direct references to each component. 
+
+    `Model <---> Presenter <---> View`
+    
+    MVP core components:
+    - Model: represents the data and business logic part of the app. It does not interact directly with the view. It provides data to the Presenter, and the presenter forwards that data to the view. The model is usually a repository that interacts with multiple data sources such as a local database or remote API.
+    - View: handles the presentation of the data and UI. It's responsibility is to draw the UI with the data provided by the Presenter. A view can be an activity, fragment, dialog, or any user facing component.
+    - Presenter: Is the gateway between the model and the view as they do not interact or know about each other. Data is retrieved from the Model by the Presenter and passed on to the View.
+
 
 * **Describe MVVM.** - [Learn from here](https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide) and [here](https://www.youtube.com/watch?v=HJMZNF-tG-4)
 
+    MVVM architecture is a Model-View-ViewModel architecture that removes the tight coupling between each component. Most importantly, in this architecture, the children don't have the direct reference to the parent, they only have the reference by observables.
+
+    MVVM core components:
+    - Model: it represents the data and the business logic. The model is usually a repository that interacts with multiple data sources such as a local database or remote API. The data from these sources is received by the repository and then delivered back to the ViewModel using some form of observing.
+    - View: handles the presentation of the data and UI. A view can be an activity, fragment, dialog, or any user facing component. The View sends user actions to the ViewModel but does not get the response back directly. To get the response, it has to subscribe to observables which ViewModel exposes to it.
+    - ViewModel: It is a bridge between the View and Model(business logic). It does not have any clue which View has to use it as it does not have a direct reference to the View and is not aware of it. It interacts with the Model, updates it's observables and exposes those observables to be observed by the View.
+
+
 * **MVC vs MVP vs MVVM architecture.** - [Learn from here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
+
+    ### MVC
+    Advantages:
+    - It keeps business logic separate in the model
+    - Support asynchronous techniques
+    - The modification does not affect the entire model
+    - Faster development process
+    
+    Disadvantages:
+    - Due to large code in controller it becomes unmanageable
+    - Hinders Unit testing
+    - Increased Complexity
+
+    ### MVP
+    Advantages:
+    - It makes view dumb so that you can swap the view easily
+    - Reusable View and Presenter
+    - Code is more readable and maintainable
+    - Easy testing as business logic separated from UI
+
+    Disadvantages:
+    - Tight coupling between View and Presenter
+    - Huge amount of interfaces for interaction between layers
+    - The code size can be quite excessive
+
+    ### MVVM
+    Advantages:
+    - No tight coupling between the View and ViewModel
+    - No interfaces required between View and ViewModel
+    - Easy to unit test and code is event-driven
+
+    Disadvantages:
+    - You have to create observables for each UI component
+    - The code size can be quite excessive
+
 
 * **What is presenter?** - [Learn from here](https://mindorks.com/course/android-mvp-introduction)
 
+    Presenter: Is the gateway between the model and the view as they do not interact or know about each other. Data is retrieved from the Model by the Presenter and passed on to the View.
+
 * **What is model?** - [Learn from here](https://mindorks.com/course/android-mvp-introduction)
+
+    Model: it represents the data and the business logic. The model is usually a repository that interacts with multiple data sources such as a local database or remote API.
 
 * **Describe MVC.** - [Learn from here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
 
+    - Model: It is business logic and Data State. Getting and manipulating the data, communicates with the controller, interacts with the database, sometimes update the views.
+    - View: What we see. User Interface consists of HTML/CSS/XML. It communicates with the controller and sometimes interacts with the model. It is passed some dynamic views through the controller.
+    - Controller: It is the Activity/Fragment. It communicates with the view and model. It takes the user input from view/REST services. Process request data from the model and passes to the view.
+
 * **Describe MVI** - [Learn from here](https://github.com/MindorksOpenSource/MVI-Architecture-Android-Beginners)
+
+    MVI stands for Model-View-Intent. 
+
+    MVI works in a very different way compared to its distant relatives, MVC, MVP or MVVM. The role of each MVI components is as follows:
+
+    - Model: represents a state. Models in MVI should be immutable to ensure a unidirectional data flow between them and the other layers in your architecture.
+    - View: corresponds to the UI layer. Like in MVP, Interfaces in MVI represent Views, which are then implemented in one or more Activities or Fragments.
+    - Intent represents an intention or a desire to perform an action, either by the user or the app itself. For every action, a View receives an Intent. The Presenter observes the Intent, and Models translate it into a new state.
+
+    For this architecture, we use models (data class) to represent the state of a screen or requested data. For example, using this approach, the model would indicate to your app when it should display a progress bar, an error message, or a list of items. 
+
+    For example, the User pushes a button in the View layer where then the User action is routed to the Presenter which will then invoke some action to the repository/data source. The repository/data source would then create a new Model with a different state (for example, error state) and return that back to the Presenter. The Presenter will then pass the Model state onto the View so that it can render it.
 
 * **Describe the repository pattern** - [Learn from here](https://blog.mindorks.com/android-mvp-architecture-extension-with-interactors-and-repositories-bd4b51972339)
 
+    Repositories are classes or components that encapsulate the logic required to access data sources. They centralize common data access functionality, providing better maintainability and decoupling. They are use to abstract the core data source logic and to just deal with retrieving and persisting data from/to the data sources.
+
 * **What is controller?** - [Learn from here](https://blog.mindorks.com/mvc-mvp-mvvm-architecture-in-android)
 
-* **Tell something about clean code** - [Learn from here](https://blog.mindorks.com/every-programmer-should-read-this-book-6755dedec78d)
+    In simple terms, the controller translates interactions with the view into actions to be performed by the model.
+
+* **Tell me something about clean code** - [Learn from here](https://blog.mindorks.com/every-programmer-should-read-this-book-6755dedec78d)
+
+    Clean Code usually refers to a set of guiding principles for writing elegant, readable, and maintainable code. 
+
+    Some of these are:
+    - Single Responsibility Principle: It states that every module or class should have responsibility over a single part of the functionality provided by the software, and that responsibility should be entirely encapsulated by the class.
+    - Open Closed Principle: It states that the software entities (classes, modules, functions, etc) should be open for extension, but closed for modification. That is, such an entity can allow its behaviour to be extended without modifying its source code.
+    - Use Descriptive Names
+    - DRY (Don't Repeat Yourself): It states that duplicating code will create bloat in the codebase and will require much more work if the code needs to be changed in multiple places where it is exactly the same. 
 
 ### Android Design Problem
 
@@ -799,66 +957,159 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **Design problems based on location based app.**
 
+    - Persuading your Users to opt-in to geolocation. Perhaps when they use a feature of your app that requires it. Say they tap on the search bar to look for a restaurant or location, that is a good spot as contextually it makes sense.
+    - Mitigate privacy concerns as Users may feel like Big Brother is watching them. We must be transparent in how the data is used.
+    - Protect location data by making security a priority from the start. By assessing potential vulnerabilities in third-party libraries and components. By using authorization best practices and secure communication practices. By securing the local data storage.
+    - Try to reduce battery drain due to location tracking.
+
+
 * **How to build offline-first app? Explain the architecture.**
+
+    An offline-first app will depend on the local storage as a primary soruce of data and changes are made to this storage. 
+
+    The most common approach is to cache data locally. Caching stores data for read access which gives users access to data on their device, renders the UI, and provides a predictable user experience based on a snapshot in time. Caching can provide a smooth offline experience and faster performance but may require a whole component dedicated to handling cached data and determining when to update that cached data.
+
+    Another approach is to modify data locally and then sync it online when the device gets a network connection. 
 
 * **Design LRU Cache.**
 
+    LRU cache manages an object list. Each time a value is accessed, it is moved to the head of the list. When a value is put into the cache, the value at the end of the list may be evicted.
+
+    The LRU cache on Android typically uses a LinkedHashmap. 
+
+    A scenario that a LruCache can be used is to manager the quota of disk cache and memory cache when loading a network image.
+
 * **Design File Downloader** - [Lear from here](https://github.com/MindorksOpenSource/PRDownloader)
 
-* **HTTP Request vs HTTP Long-Polling vs WebSockets** - [Lear from here](https://www.youtube.com/watch?v=k56H0DHqu5Y)
+* **HTTP Request vs HTTP Long-Polling vs WebSockets** - [Learn from here](https://www.youtube.com/watch?v=k56H0DHqu5Y)
 
 ### Android Unit Testing
 * **What is Espresso?** - [Learn from here](https://developer.android.com/training/testing/ui-testing/espresso-testing.html)
 
+    The Espresso testing framework, provided by AndroidX Test, provides APIs for writing UI tests to simulate user interactions within a single target app. 
+
 * **What is Robolectric?** - [Learn from here](http://robolectric.org/)
+
+    Robolectric is a framework that brings fast and reliable unit tests to Android. Tests run inside the JVM on your workstation in seconds.
+
+    Robolectric allows a test style that is closer to black box testing, making the tests more effective for refactoring and allowing the tests to focus on the behavior of the application instead of the implementation of Android.
 
 * **What are the disadvantages of using Robolectric?** - [Learn from here](https://stackoverflow.com/questions/18271474/robolectric-vs-android-test-framework) 
 
+    Robolectric excels at aiding Unit testing, but does not cover all the functionality a real device or emulator can offer. For example sensors, gps, open-gl etc etc.
+
 * **What is UI-Automator?** - [Learn from here](https://developer.android.com/training/testing/ui-testing/uiautomator-testing.html)
+
+    The UI Automator APIs let you interact with visible elements on a device, regardless of which Activity is in focus. Your test can look up a UI component by using convenient descriptors such as the text displayed in that component or its content description. 
+
+    The uiautomatorviewer tool provides a convenient visual interface to inspect the layout hierarchy and view the properties of UI components that are visible on the foreground of the device. This information lets you create more fine-grained tests using UI Automator.
 
 * **Explain unit test.** - [Learn from here](https://developer.android.com/training/testing/unit-testing/local-unit-tests)
 
+    To evaluate and test your app's logic you can use local unit tests when you need to run tests more quickly and don't need the fidelity and confidence associated with running tests on a real device.
+
+    In short, Unit testing simply verifies that individual units of code (mostly functions) work as expected.
+
 * **Explain instrumented test.** - [Learn from here](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests)
+
+    Instrumented unit tests are tests that run on physical devices and emulators, and they can take advantage of the Android framework APIs and supporting APIs. Instrumented tests provide more fidelity than local unit tests, but they run much more slowly.
 
 * **Have you done unit testing or automatic testing?**
 
 * **Why Mockito is used?** - [Learn from here](http://site.mockito.org/)
 
+     Mockito allows you to create and configure mock objects. Using Mockito greatly simplifies the development of tests for classes with external dependencies.
+
+    If you use Mockito in tests you typically:
+    - Mock away external dependencies and insert the mocks into the code under test
+    - Execute the code under test
+    - Validate that the code executed correctly
+
 * **Describe JUnit test.** - [Learn from here](https://en.wikipedia.org/wiki/JUnit)
 
+    JUnit is a unit testing framework for the Java programming language. JUnit promotes the idea of "first testing then coding", which emphasizes on setting up the test data for a piece of code that can be tested first and then implemented
+
 * **Describe code coverage.** - [Learn from here](https://blog.mindorks.com/generate-global-code-coverage-report-in-android-development-using-jacoco-plugin)
+
+    Test coverage is a measure used to describe the degree to which the source code of a program is executed when a particular test suite runs. A program with high test coverage, measured as a percentage, has had more of its source code executed during testing, which suggests it has a lower chance of containing undetected software bugs compared to a program with low test coverage.
 
 ### Android Tools And Technologies
 
 * **What is ADB?** - [Learn from here](https://developer.android.com/studio/command-line/adb)
 
+    Android Debug Bridge (adb) is a versatile command-line tool that lets you communicate with a device. The adb command facilitates a variety of device actions, such as installing and debugging apps, and it provides access to a Unix shell that you can use to run a variety of commands on a device. It is a client-server program that includes three components:
+
+    - A client, which sends commands. The client runs on your development machine. You can invoke a client from a command-line terminal by issuing an adb command.
+    - A daemon (adbd), which runs commands on a device. The daemon runs as a background process on each device.
+    - A server, which manages communication between the client and the daemon. The server runs as a background process on your development machine.
+
 * **What is DDMS and what can you do with it?** - [Learn from here](https://developer.android.com/studio/profile/monitor)
 
 * **What is the StrictMode?** - [Learn from here](https://blog.mindorks.com/use-strictmode-to-find-things-you-did-by-accident-in-android-development-4cf0e7c8d997)
 
+    StrictMode is a developer tool which detects things you might be doing by accident and brings them to your attention so you can fix them.
+
+    StrictMode is most commonly used to catch accidental disk or network access on the application’s main thread, where UI operations are received and animations take place.
+
 * **What is Lint? What is it used for?** - [Learn from here](https://blog.mindorks.com/what-is-lint-what-is-it-used-for)
 
+    Lint is a code scanning tool provided by the Android Studio to identify, suggest and correct wrong, risky, or smelly code present in the project.
+
 * **Git.** - [Learn from here](https://www.youtube.com/watch?v=D4h8Dbrjt4M&list=PL6nth5sRD25itbyNVUULAebzL-VLrLfkK)
+
+    Git is a distributed version-control system for tracking changes in source code during software development. It is designed for coordinating work among programmers, but it can be used to track changes in any set of files. Its goals include speed, data integrity, and support for distributed, non-linear workflows
 
 * **Android Development Useful Tools.** - [Learn from here](https://blog.mindorks.com/android-development-useful-tools-fd73283e82e3)
 
 * **Firebase.** - [Learn from here](https://firebase.google.com/)
 
+    Firebase is Google’s mobile application development platform that helps you build, improve, and grow your app.
+
+    It contains components such as:
+    - Authentication — user login and identity
+    - Realtime Database — realtime, cloud hosted, NoSQL database
+    - Cloud Firestore — realtime, cloud hosted, NoSQL database
+    - Cloud Storage — massively scalable file storage
+    - Cloud Functions — “serverless”, event driven backend
+    - Firebase Hosting — global web hosting
+
 * **How to measure method execution time in Android?** - [Learn from here](https://blog.mindorks.com/measure-method-execution-time-in-android-debug-build)
 
+    You can use a 3rd party library or the traditional way is to use `System.currentTimeMillis()` at the beginning of a method to keep track of the start time and then the same thing at the end of the method to track the end time. Then you can substract the end time from the start time to get your total method run time.
+
 * **Can you access your database of SQLite Database for debugging?** - [Learn from here](https://blog.mindorks.com/how-to-access-sqlite-database-in-android-for-debugging)
+
+    Yes, on a device with Developer Options on and a debuggable app. You can extract the database and open it locally on your computer. 
+
+    In the newest Android Studio update there is a database viewer feature.
 
 * **What are things that we need to take care while using Proguard?** - [Learn from here](https://blog.mindorks.com/things-to-care-while-using-proguard-in-android-application)
 
 * **What is Multidex in Android?** - [Learn from here](https://blog.mindorks.com/understanding-multidex-in-android)
 
+    Dex stands for Dalvik Executable, which is what Google's virtual machine processor (Dalvik) uses to handle Android Applications. Android was built with small and simple apps in mind and the constraints on one single Dalvik Executable pinned the roof of code references at 65,536 methods. Because of this issue and the way the Dalvik machine handles code execution there were some compiling and invocation issues, until the Monkey Patch or MultiDex integration. 
+
+    MultiDex integration in Android Studio allows Android Developers the ability to compile and execute a code-base with over 65,536 methods!
+
 * **How to use Android Studio Memory Profiler?** - [Learn from here](https://www.youtube.com/watch?v=FxDa2td6Ej8)
+
+    The Memory Profiler is a component in the Android Profiler that helps you identify memory leaks and memory churn that can lead to stutter, freezes, and even app crashes. It shows a realtime graph of your app's memory use and lets you capture a heap dump, force garbage collections, and track memory allocations.
 
 * **How to use Firebase realtime database in your app?** - [Learn from here](https://blog.mindorks.com/firebase-realtime-database-android-tutorial)
 
 * **What is Gradle?** - [Learn from here](https://blog.mindorks.com/gradle-for-android-developers-getting-the-most-of-it)
 
+    By definition, Gradle is an open-source build automation tool focused on flexibility and performance.
+
 * **APK Size Reduction.** - [Learn from here](https://blog.mindorks.com/how-to-reduce-apk-size-in-android-2f3713d2d662) and [here](https://blog.mindorks.com/using-r8-to-reduce-apk-size-in-android)
+
+    - Use Android App Bundles
+    - Use Android Size Analyzer to understand which files are taking up space
+    - Remove unused resources
+    - Pay attention to Lint in order to detect unused resources and code
+    - Evaluate the use of 3rd party libraries and whether you can get away without needing one
+    - Compress image files
+    - Use proguard or better yet R8, minification, and shrink resources
 
 * **How can you speed up the Gradle build?** - [Learn from here](https://blog.mindorks.com/speed-up-gradle-build-for-android-to-save-your-time)
 
@@ -868,9 +1119,21 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What is proguard used for?** - [Learn from here](https://blog.mindorks.com/applying-proguard-in-an-android-application)
 
+    Proguard is a tool that helps with:
+    - Shrink(Minify) the code: Remove unused code in the project.
+    - Obfuscate the code: Rename the names of class, fields, etc.
+    - Optimize the code: Do things like inlining the functions.
+
+    In summary, Proguard helps with:
+    - It reduces the size of the application.
+    - It removes unused classes and methods that contribute to the 64K method counts limit of an Android application.
+    - It makes the application difficult to reverse engineer by obfuscating the code.
+
 * **What is obfuscation? What is it used for? What about minification?** - [Learn from here](https://www.youtube.com/watch?v=yduedsaxfDw)
 
 * **How to change some parameters in an app without app update?** - [Learn from here](https://blog.mindorks.com/getting-started-with-firebase-remote-config-in-android)
+
+    You can use Firebase RemoteConfig which allows you to deliver some updates in the App like text changes and color changes without publishing any update of the app on the Play Store.
 
 ### Java and Kotlin
 
