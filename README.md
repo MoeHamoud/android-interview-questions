@@ -1131,6 +1131,11 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What is obfuscation? What is it used for? What about minification?** - [Learn from here](https://www.youtube.com/watch?v=yduedsaxfDw)
 
+    - Code shrinking (or tree-shaking): detects and safely removes unused classes, fields, methods, and attributes from your app and its library dependencies (making it a valuable tool for working around the 64k reference limit). For example, if you use only a few APIs of a library dependency, shrinking can identify library code that your app is not using and remove only that code from your app. To learn more, go to the section about how to shrink your code.
+    - Resource shrinking: removes unused resources from your packaged app, including unused resources in your app’s library dependencies. It works in conjunction with code shrinking such that once unused code has been removed, any resources no longer referenced can be safely removed as well.
+    - Obfuscation: shortens the name of classes and members, which results in reduced DEX file sizes.
+    - Optimization: inspects and rewrites your code to further reduce the size of your app’s DEX files. For example, if R8 detects that the else {} branch for a given if/else statement is never taken, R8 removes the code for the else {} branch.
+
 * **How to change some parameters in an app without app update?** - [Learn from here](https://blog.mindorks.com/getting-started-with-firebase-remote-config-in-android)
 
     You can use Firebase RemoteConfig which allows you to deliver some updates in the App like text changes and color changes without publishing any update of the app on the Play Store.
