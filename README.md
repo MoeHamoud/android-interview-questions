@@ -2048,7 +2048,7 @@ We use custom views to make the UI component re-usable and to add new interactio
     // explanation
     - funcParam: () -> Unit, is how you define that it takes a function as a param.
     - In the above example, "abc" is just a parameter name.
-    - In () -> Unit, "()" means that the function being takes no params.
+    - In () -> Unit, "()" means that the function passed in takes no params.
     - In () -> Unit, "Unit" means that the function does not return anything.
     ```
 
