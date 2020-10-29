@@ -2072,7 +2072,7 @@ We use custom views to make the UI component re-usable and to add new interactio
     it will return a function that takes two Int params and returns an Int.
     - In ((Int, Int) -> Int), "(Int, Int)" means that the function being 
     returned should take two params as Int.
-    - In ((Int, Int) -> Int), "Int" means that the function will return a 
+    - In ((Int, Int) -> Int), "-> Int" means that the function will return a 
     value as an Int.
 
     // usage sample
