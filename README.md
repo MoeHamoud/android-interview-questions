@@ -2046,7 +2046,8 @@ We use custom views to make the UI component re-usable and to add new interactio
     }
 
     // explanation
-    - funcParam: () -> Unit, is how you define that it takes a function as a param.
+    - funcParam: () -> Unit, is how you define that it takes a function 
+    as a param.
     - In the above example, "abc" is just a parameter name.
     - In () -> Unit, "()" means that the function passed in takes no params.
     - In () -> Unit, "Unit" means that the function does not return anything.
@@ -2069,8 +2070,10 @@ We use custom views to make the UI component re-usable and to add new interactio
     // explanation
     - As you can see the return type of the returnMeAddFunction() says that
     it will return a function that takes two Int params and returns an Int.
-    - In ((Int, Int) -> Int), "(Int, Int)" means that the function should take two params as Int.
-    - In ((Int, Int) -> Int), "Int" means that the function will return a value as an Int.
+    - In ((Int, Int) -> Int), "(Int, Int)" means that the function being 
+    returned should take two params as Int.
+    - In ((Int, Int) -> Int), "Int" means that the function will return a 
+    value as an Int.
 
     // usage sample
     val add = returnMeAddFunction()
