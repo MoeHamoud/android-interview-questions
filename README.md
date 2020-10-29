@@ -1151,14 +1151,18 @@ We use custom views to make the UI component re-usable and to add new interactio
     [abstraction](https://en.wikipedia.org/wiki/Abstraction_(software_engineering)), and
     [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)).
 
+    - __Inheritance__: Inheritance is a mechanism in which one class acquires the property of another class. For example, a child inherits the traits of his/her parents. With inheritance, we can reuse the fields and methods of the existing class.
+    - __Polymorphism__: Polymorphism allows us to perform a single action in different ways. In other words, polymorphism allows you to define one interface and have multiple implementations. Real life example of polymorphism: A person at the same time can have different characteristic. Like a man at the same time is a father, a husband, an employee.
+    - __Abstraction__: Abstraction is the process of removing physical, spatial, or temporal details or attributes in the study of objects or systems to focus attention on details of greater importance. Through the process of abstraction, a programmer hides all but the relevant data about an object in order to reduce complexity and increase efficiency.
+    - __Encapsulation__: Encapsulation refers to the bundling of data, along with the methods that operate on that data, into a single unit. Encapsulation can be used to hide both data members and data functions or methods associated with an instantiated class or object.
+
 * **What is the difference between a constructor and a method?**
-    - The name of the constructor is same as that of the class name, whereas the name of the method can be anything.
+    - The name of the constructor is same as that of the class name, whereas the name of the method can be anything. (not necessarily, see Kotlin language)
     - There is no return type of a constructor.
-    - When you make an object of a class, then the constructor of that class will be called automatically. 
-      But for methods, we need to call it explicitely.
+    - When you make an object of a class, then the constructor of that class will be called automatically. But for methods, we need to call it explicitely.
     - Constructors can't be inherited but you can call the constructor of the parent class by calling `super()`.
-    - Constructor and a method they both run a block of code but the difference is in calling them.
-    - We can call method directly using their name.
+    - Constructors and methods both run a block of code but the difference is in calling them.
+    - We can call a method directly using their name.
     - Constructor Syntax -
         ```java
         public class SomeClassName{
@@ -1168,10 +1172,6 @@ We use custom views to make the UI component re-usable and to add new interactio
             ...
         }
         ```
-    - Note:
-        In the above syntax, the name of the constructor is the same as that of class
-        and it has no return type.
-        
     - Method Syntax 
         ```java
         public class SomeClassName{
@@ -1183,26 +1183,25 @@ We use custom views to make the UI component re-usable and to add new interactio
         }
         ```
 * **Differences between abstract classes and interfaces?** 
-    - An abstract class, is a class that contains both concrete and abstract methods 
-    (methods without implementations). An abstract method must be implemented by the abstract class
-     sub-classes. Abstract classes cannot be instantiated and need to be extended to be used.
-    - An interface is like a blueprint/contract of a class (or it may be thought of as a class with methods, but without their implementation). It contains empty methods that 
-    represent, what all of its subclasses should have in common. The subclasses provide the 
-    implementation for each of these methods. Interfaces are implemented.
+    - An abstract class, is a class that contains both concrete and abstract methods (methods without implementations). An abstract method must be implemented by the abstract class sub-classes. Abstract classes cannot be instantiated and need to be extended to be used.
+    - An interface is like a blueprint/contract of a class (or it may be thought of as a class with methods, but without their implementation). It contains empty methods that represent what all of its subclasses should have in common. The subclasses provide the implementation for each of these methods. 
+    - Interfaces are implemented.
 
 * **What is the difference between iterator and enumeration in java?**
     - In Enumeration we have remove() method and we can only read and traverse through a collection.
-    - Iterators can be applied to any collection. In Iterator, we can read and remove items from a collection.
+    - Iterators can be applied to any collection. In an Iterator, we can read and remove items from a collection.
 
-* **Do you agree we use composition over inheritance?** [Learn from here](https://www.journaldev.com/12086/composition-vs-inheritance)
+* **Do you agree with "composition over inheritance"?** [Learn from here](https://www.journaldev.com/12086/composition-vs-inheritance)
+
+    Inheritance brings out IS-A relation. Composition brings out HAS-A relation.
+    
+    Prefer composition over inheritance as it is more malleable / easy to modify later, but do not use a compose-always approach. With composition, it's easy to change behavior on the fly with Dependency Injection / Setters. Inheritance is more rigid as most languages do not allow you to derive from more than one type.
 
 * **Difference between method overloading and overriding.**
-        <p align="center">
-        <img alt="Overloading and Overriding" src="https://github.com/codeshef/android-interview-questions/blob/master/assets/overloading-vs-overriding.png">
-        </p>
+        <p align="center"><img alt="Overloading and Overriding" src="assets/overloading-vs-overriding.png"></p>
     - Overloading happens at compile-time while Overriding happens at runtime: The binding of overloaded method call to its definition happens at compile-time however binding of overridden method call to its definition happens at runtime.
     More info on static vs. dynamic binding: [StackOverflow](https://stackoverflow.com/questions/19017258/static-vs-dynamic-binding-in-java).
-    - Static methods can be overloaded which means a class can have more than one static method of same name. Static methods cannot be overridden, even if you declare a same static method in child class it has nothing to do with the same method of parent class as overridden static methods are chosen by the reference class and not by the class of the object.
+    - Static methods can be overloaded which means a class can have more than one static method of same name. Static methods cannot be overridden, even if you declare a same static method in a child class it has nothing to do with the same method of parent class as overridden static methods are chosen by the reference class and not by the class of the object.
 
         So, for example:
         ```java
@@ -1245,7 +1244,7 @@ We use custom views to make the UI component re-usable and to add new interactio
                                     // but from "Cat" object underneath
         ```
 
-        The most basic difference is that overloading is being done in the same class while for overriding base and child classes are required. Overriding is all about giving a specific implementation to the inherited method of parent class.
+        The most basic difference is that overloading is being done in the same class while for overriding, base and child classes are required. Overriding is all about giving a specific implementation to the inherited method of parent class.
 
         Static binding is being used for overloaded methods and dynamic binding is being used for overridden/overriding methods.
         Performance: Overloading gives better performance compared to overriding. The reason is that the binding of overridden methods is being done at runtime.
@@ -1289,36 +1288,47 @@ We use custom views to make the UI component re-usable and to add new interactio
     }
     ```
 
-* **Multiple inheritance in Classes and Interfaces in java** [Learn from here](http://codeinventions.blogspot.in/2014/07/can-interface-extend-multiple.html)
-
 * **What are the design patterns?** [Learn from here](https://blog.mindorks.com/mastering-design-patterns-in-android-with-kotlin)
     - Creational patterns
-        - Builder [Wikipedia](https://en.wikipedia.org/wiki/Builder_pattern?oldformat=true)
-        - Factory [Wikipedia](https://en.wikipedia.org/wiki/Factory_method_pattern?oldformat=true)
-        - Singleton [Wikipedia](https://en.wikipedia.org/wiki/Singleton_pattern)
-        - Monostate [Wikipedia](http://wiki.c2.com/?MonostatePattern)
-        - Fluent Interface Pattern [Wikipedia](https://martinfowler.com/bliki/FluentInterface.html)
+        - Builder ([Wikipedia](https://en.wikipedia.org/wiki/Builder_pattern?oldformat=true)): The Builder pattern is a design pattern designed to provide a flexbile solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation.
+        - Factory ([Wikipedia](https://en.wikipedia.org/wiki/Factory_method_pattern?oldformat=true)): The Factory pattern is a creational pattern that uses factory methods to deal with the problem of creating objects without having to specify the exact class of the object that will be created. This is done by creating objects by calling a factory method -- either specified in an interface and implemented by child casses, or implemented in a base class and optionally overriden by derived classes -- rather than by calling a constructor.
+        - Singleton ([Wikipedia](https://en.wikipedia.org/wiki/Singleton_pattern)): The Singleton pattern is a software design pattern that restricts the instantiation of a class to one "single" instance. This is useful when exactly one object is needed to coordinate actions across the system.
+        - Monostate ([Wikipedia](http://wiki.c2.com/?MonostatePattern)): The Monostate pattern is usually referred to as syntactic sugar over the Singleton pattern or as a conceptual Singleton . It avoids all the complications of having a single instance of a class, but all the instances use the same data. This is accomplished mostly by using static data members.
+        - Fluent Interface Pattern ([Wikipedia](https://martinfowler.com/bliki/FluentInterface.html)): A Fluent interface is an object-oriented API whose design relies extensively on method chaining. Its goal is to increase code legibility by creating a domain-specific language (DSL). An example of where this is used is in database queries when using an ORM.
     - Structural patterns
-        - Adapter [Wikipedia](https://en.wikipedia.org/wiki/Adapter_pattern?oldformat=true)
-        - Decorator [Wikipedia](https://en.wikipedia.org/wiki/Decorator_pattern?oldformat=true)
-        - Facade [Wikipedia](https://en.wikipedia.org/wiki/Facade_pattern?oldformat=true)
+        - Adapter ([Wikipedia](https://en.wikipedia.org/wiki/Adapter_pattern?oldformat=true)): The Adapter pattern is a structural design pattern that allows objects with incompatible interfaces to collaborate. This is a special object that converts the interface of one object so that another object can understand it. (Think of this like an object mapper, for example, from JSON to Data Class object)
+        - Decorator ([Wikipedia](https://en.wikipedia.org/wiki/Decorator_pattern?oldformat=true)): Decorator pattern allows a user to add new functionality to an existing object without altering its structure. This type of design pattern comes under structural pattern as this pattern acts as a wrapper to existing class.
+        - Facade ([Wikipedia](https://en.wikipedia.org/wiki/Facade_pattern?oldformat=true)): The Facade pattern hides the complexities of the system and provides an interface to a client. This type of design pattern comes under structural pattern as this pattern adds an interface to existing system to hide its complexities. This pattern involves a single class which provides simplified methods required by client and delegates calls to methods of existing system classes.
     - Behavioural patterns
-        - Chain of responsibility [Wikipedia](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern?oldformat=true)
-        - Iterator [Wikipedia](https://en.wikipedia.org/wiki/Iterator_pattern?oldformat=true)
-        - Strategy [Wikipedia](https://en.wikipedia.org/wiki/Strategy_pattern?oldformat=true)
+        - Chain of responsibility ([Wikipedia](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern?oldformat=true)): The chain-of-responsibility pattern is a design pattern consisting of a source of command objects and a series of processing objects. Each processing object contains logic that defines the types of command objects that it can handle; the rest are passed to the next processing object in the chain. A mechanism also exists for adding new processing objects to the end of this chain. Thus, the chain of responsibility is an object oriented version of the `if...else if...else if...else...endif` idiom, with the benefit that the condition–action blocks can be dynamically rearranged and reconfigured at runtime.
+        - Iterator ([Wikipedia](https://en.wikipedia.org/wiki/Iterator_pattern?oldformat=true)): The iterator pattern is a design pattern in which an iterator is used to traverse a container and access the container's elements. The iterator pattern decouples algorithms from containers; in some cases, algorithms are necessarily container-specific and thus cannot be decoupled.
+        - Strategy ([Wikipedia](https://en.wikipedia.org/wiki/Strategy_pattern?oldformat=true)): The strategy pattern (also known as the policy pattern) is a behavioral software design pattern that enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use.
 
 #### Collections and Generics
 
 * **Arrays Vs ArrayLists** - [Learn from here](https://stackoverflow.com/questions/32020000/what-is-the-difference-between-an-array-arraylist-and-a-list/32020072) and [here](https://www.youtube.com/watch?v=SMtSW3Zke_k)
 
+    - An `Array` (System.Array) is fixed in size once it is allocated. You can't add items to it or remove items from it. Also, all the elements must be the same type. As a result, it is type safe, and is also the most efficient of the three, both in terms of memory and performance. 
+    - An `ArrayList` is a flexible array which contains a list of objects. You can add and remove items from it and it automatically deals with allocating space. If you store value types in it, they are boxed and unboxed, which can be a bit inefficient. Also, it is not type-safe.
+    - A `List<>` leverages generics; it is essentially a type-safe version of ArrayList. This means there is no boxing or unboxing (which improves performance) and if you attempt to add an item of the wrong type it'll generate a compile-time error.
+
 * **HashSet Vs TreeSet** - [Learn from here](https://stackoverflow.com/questions/25602382/java-hashset-vs-treeset-when-should-i-use-over-other)
+
+    - `HashSet` is implemented using a hash table. Elements are not ordered. The add, remove, and contains methods have constant time complexity O(1). HashSet does not maintain ordering.
+    - `TreeSet` is implemented using a tree structure(red-black tree in algorithm book). The elements in a set are sorted, but the add, remove, and contains methods has time complexity O(log (n)). It offers several methods to deal with the ordered set like first(), last(), headSet(), tailSet(), etc. TreeSet does maintain ordering.
 
 * **HashMap Vs Set** - [Learn from here](https://stackoverflow.com/questions/2773824/difference-between-hashset-and-hashmap)
 
+    - `HashMap` is a Map (a collection with keyed access) implementation, allowing duplicate values but not duplicate keys. For adding an object a Key/Value pair is required. Null Keys and Null values are allowed. 
+    - `HashSet` is a Set (an unordered non-duplicate collection) implementation, which does not allow duplicates. If you tried to add a duplicate object, a call to public boolean add(Object o) method, then the set remains unchanged and returns false.
+
 * **Stack Vs Queue** - [Learn from here](https://afteracademy.com/tech-interview/ds-algo-concepts/stack-and-queue)
 
+    - `Stack` is a data structure that allows elements to be inserted and deleted only from one side of the list, called the top. The insertion of an element is called push operation and the deletion of an element is called pop operation.
+    - `Queue` is a datastructure that allows elements to be inserted only from one side of the list called Rear, and the elements can be deleted only from the other side called the Front. It’s the insertion of an element in a queue is called an Enqueue operation and the deletion of an element is called a Dequeue operation.
+
 * **Explain Generics in Java?**
-    - Generics were included in Java language to provide stronger type checks, by allowing the programmer to define, which classes can be used with other classes
+    - Generics were included in Java language to provide stronger type checks, by allowing the programmer to define which classes can be used with other classes
         > In a nutshell, generics enable types (classes and interfaces) to be parameters when defining classes, interfaces and methods. Much like the more familiar formal parameters used in method declarations, type parameters provide a way for you to re-use the same code with different inputs. The difference is that the inputs to formal parameters are values, while the inputs to type parameters are types. ([Official Java Documentation](https://docs.oracle.com/javase/tutorial/java/generics/why.html))
 
     - This means that, for example, you can define:
@@ -1353,7 +1363,7 @@ We use custom views to make the UI component re-usable and to add new interactio
     - It means that once created, `String` object's `char[]` (its' containing value) is declared `final` and, therefore, it can not be changed during runtime.
 
 * **What is `String.intern()`? When and why should it be used?**
-    - `String.intern()` is used to mange memory in Java code. It is used when we have duplicates value in different strings. When you call the `String.intern()`, then if in the String pool that string is present then the `equals()` method will return true and it will return that string only.
+    - `String.intern()` is used to manage memory in Java code. It is used when we have duplicate values in different strings. When you call the `String.intern()`, then if in the String pool that string is present then the `equals()` method will return true and it will return that string only.
 
 * **Can you list 8 primitive types in java?**
     - `byte`
@@ -1367,19 +1377,19 @@ We use custom views to make the UI component re-usable and to add new interactio
     - `boolean`
 
 * **What is the difference between an Integer and int?**
-  - `int` is a primitive data type (with `boolean`, `byte`, `char`, `short`, `long`, `float` and `double`), while `Integer` (with `Boolean`, `Byte`, `Character`, `Short`,`Long`, `Float` and `Double`) is a [wrapper](https://docs.oracle.com/javase/tutorial/java/data/numberclasses.html) class that encapsulates primitive data type, while providing useful methods to perform different tasks with it.
+  - `int` is a primitive data type (with `boolean`, `byte`, `char`, `short`, `long`, `float`, and `double`), while `Integer` (with `Boolean`, `Byte`, `Character`, `Short`, `Long`, `Float`, and `Double`) is a [wrapper](https://docs.oracle.com/javase/tutorial/java/data/numberclasses.html) class that encapsulates primitive data type, while providing useful methods to perform different tasks with it.
 
 * **What is Autoboxing and Unboxing?**
   - Autoboxing and Unboxing is the process of automatic wrapping (putting in a box) and unwrapping (getting the value out) of primitive data types, that have "wrapper" classes. So `int` and `Integer` can (almost always) be used interchangeably in Java language, meaning a method `void giveMeInt(int i) { ... }` can take `int` as well as `Integer` as a parameter.
 
 * **Typecast in Java**
-    - In Java, you can use casts to polymorph one class into another, compatible one. For example:
+    - In Java, you can use casts to polymorph one class into another compatible one. For example:
         ```java
             long i = 10l;
             int j = (int) i;
             long k = j;
         ```
-        Here we see, that, while narrowing (`long i` -> `int j`) requires an explicit cast to make sure the programmer realizes, that there may be some data or precision loss, widening (`int j` -> `long k`) does not require an explicit cast, because there can be no data loss (`long` can take larger numbers than `int` allows).
+        Here we see, that, while narrowing (`long i` -> `int j`) requires an explicit cast to make sure the programmer realizes that there may be some data or precision loss whereas widening (`int j` -> `long k`) does not require an explicit cast, because there can be no data loss (`long` can take larger numbers than `int` allows).
 
 * **Do objects get passed by reference or value in Java? Elaborate on that.**
     - In Java all primitives and objects are passed by value, meaning that their copy will be manipulated in the receiving method. But there is a caveat - when you pass an object reference into a method, a *copy of this reference* is made, so it still points to the same object. This means, that any changes that you make to the insides of this object are retained, when the method exits.
@@ -1439,6 +1449,9 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What is the difference between instantiation and initialization of an object?** - [Learn from here](https://docs.oracle.com/javase/tutorial/java/javaOO/objectcreation.html)
 
+    - Instantiation: is when you create an instance of a class. That instance is then an object, and you can set its properties, or call methods on it (tell it to do things).
+    - Initialization: is when you set up a set of initial conditions for something. That something might be an object, where you tell it to initiate itself, or just a variable to which you assign a value.
+
 * **What the difference between local, instance and class variables?**
   - Local variables exist only in methods that created them, they are stored separately in their respected Thread Stack (for more information, see question about Java Memory Model) and cannot have their reference passed outside of the method scope. That also means that they cannot be assigned any access modifier or made `static` - because they only exist during enclosing method's execution and those modifiers just do not make sense, since no other outside method can get them anyway.
   - Instance variables are the ones, that are declared in classes and their value can be different from one instance of the class to another, but they always require that class' instance to exist.
@@ -1449,22 +1462,36 @@ We use custom views to make the UI component re-usable and to add new interactio
 * **What is garbage collector? How does it work?**
   - All objects are allocated on the heap area managed by the JVM.
   As long as an object is being referenced, the JVM considers it alive.
-  Once an object is no longer referenced and therefore is not reachable by the application code,
-  the garbage collector removes it and reclaims the unused memory.
+  Once an object is no longer referenced and therefore is not reachable by the application code, the garbage collector removes it and reclaims the unused memory.
 
 * **What is Java Memory Model? What contracts does it guarantee? How are its' Heap and Stack organized?** - [Learn from here](http://tutorials.jenkov.com/java-concurrency/java-memory-model.html)
 
 * **What is memory leak and how does Java handle it?** - [Learn from here](https://developers.redhat.com/blog/2014/08/14/find-fix-memory-leaks-java-application/)
 
+    - A memory leak in Java can occur if you forget to close a resource, or a reference to an object is not released.
+
 * **What are strong, soft, weak and phantom references in Java?** - [Learn from here](https://dzone.com/articles/weak-soft-and-phantom-references-in-java-and-why-they-matter)
+
+    - `SoftReference`: Soft reference objects are cleared at the discretion of the garbage collector in response to memory demand. Soft references are most often used to implement memory-sensitive caches. All soft references to softly reachable objects are guaranteed to have been cleared before the virtual machine throws an OutOfMemoryError.
+    - `WeakReference`: Weak reference objects do not prevent their referents from being made finalizable, finalized, and then reclaimed. Weak references are most often used to implement canonicalizing mappings.
+    - `PhantomReference`: Phantom reference objects are enqueued after the collector determines that their referents may otherwise be reclaimed. Phantom references are most often used for scheduling pre-mortem cleanup actions in a more flexible way than is possible with the Java finalization mechanism. Unlike soft and weak references, phantom references are not automatically cleared by the garbage collector as they are enqueued. An object that is reachable via phantom references will remain so until all such references are cleared or themselves become unreachable.
+
 
 #### Concurrency
 
 * **What does the keyword `synchronized` mean?** [Learn from here](https://stackoverflow.com/a/1085745/2621950)
 
+    - `synchronized` methods enable a simple strategy for preventing thread interference and memory consistency errors: if an object is visible to more than one thread, all reads or writes to that object's variables are done through synchronized methods. In a nutshell, the synchronized keyword makes methods thread-safe.
+
 * **What is a `ThreadPoolExecutor`?** [Learn from here](https://blog.mindorks.com/threadpoolexecutor-in-android-8e9d22330ee3)
 
+    - The ThreadPoolExecutor executes a given task using one of its threads from the thread pool.
+    - It’s a powerful task execution framework as it supports task addition in a queue, task cancellation, and task prioritization.
+    - It reduces the overhead associated with thread creation, as it manages a required number of threads in its thread pool.
+
 * **What is `volatile` modifier?** [Learn from here](http://tutorials.jenkov.com/java-concurrency/volatile.html)
+
+    Volatile keyword is used to modify the value of a variable by different threads. It is also used to make classes thread safe. It means that multiple threads can use a method and instance of the classes at the same time without any problem. The volatile keyword can be used either with primitive type or objects. It does not cache the value of the variable and always reads the variable from the main memory. It cannot be used with classes or methods. However, it is used with variables.
 
 * **The classes in the atomic package expose a common set of methods: `get`, `set,`, `lazyset`, `compareAndSet`, and `weakCompareAndSet`. Please describe them.**
 
@@ -1472,7 +1499,16 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **How does the `try{}`, `catch{}`, `finally` works?** - [Learn from here](https://www.youtube.com/watch?v=Z_5e8MjRWnc&list=PL6nth5sRD25g_M_OgsMQgYIrESzzkGLME&index=13)
 
+    - If an exception is thrown during a sequence of statements inside a try-catch block, the sequence of statements is interrupted and the flow of control will skip directly to the catch-block.
+    - You can attach a finally-clause to a try-catch block. The code inside the finally clause will always be executed, even if an exception is thrown from within the try or catch block.
+
 * **What is the difference between a `Checked Exception` and an `Un-Checked Exception`?** - [Learn from here](https://www.w3schools.in/java-questions-answers/difference-between-checked-and-unchecked-exceptions-in-java/)
+
+    - Checked exceptions occur at compile time.
+    - Checked exceptions are a sub-class of the exception class.
+
+    - Unchecked exceptions occur at runtime.
+    - Unchecked exceptions are runtime exceptions and hence are not a part of the Exception class.
 
 #### Others
 
@@ -1593,15 +1629,40 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What is `transient` modifier?** [Learn from here](https://www.javatpoint.com/transient-keyword)
 
+    - The `transient` keyword is used in serialization. If you define any data member as transient, it will not be serialized.
+
 * **What are anonymous classes?** [Learn from here](https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html)
+
+    - Anonymous classes enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name. Use them if you need to use a local class only once.
+
+    ```
+    HelloWorld frenchGreeting = new HelloWorld() {
+        String name = "tout le monde";
+        public void greet() {
+            greetSomeone("tout le monde");
+        }
+        public void greetSomeone(String someone) {
+            name = someone;
+            System.out.println("Salut " + name);
+        }
+    };
+    ```
 
 * **What is the difference between using `==` and `.equals` on an object?** - [Learn from here](https://www.youtube.com/watch?v=aVjnX1MIHB8)
 
+    - `object1 == object2` compares if the objects referenced by object1 and object2 refer to the same memory location in Heap.
+    - `object1.equals(object2)` compares the values of object1 and object2 regardless of where they are located in memory.
+
 * **What is the `hashCode()` and `equals()` used for?** - [Learn from here](https://www.geeksforgeeks.org/equals-hashcode-methods-java/)
+
+    - `equals()` method is used to compare equality of two Objects.
+    - `hashCode()` returns the hashcode value as an Integer. Hashcode value is mostly used in hashing based collections like HashMap, HashSet, HashTable, etc. This method must be overridden in every class which overrides equals() method.
 
 * **Why would you not call abstract method in constructor?** - [Learn from here](https://stackoverflow.com/questions/15327417/is-it-ok-to-call-abstract-method-from-constructor-in-java)
 
 * **When would you make an object value `final`?**
+
+    - `final` simply makes the object reference unchangeable. The object it points to is not immutable by doing this. INSTANCE can never refer to another object, but the object it refers to may change state.
 
 * **What are these `final`, `finally` and `finalize` keywords?**
   - `final` is a keyword in the java language. It is used to apply restrictions on class, method and variable. Final class can't be inherited, final method can't be overridden and final variable value can't be changed.
@@ -1645,7 +1706,9 @@ We use custom views to make the UI component re-usable and to add new interactio
     ```
 
 * **What is the difference between "throw" and "throws" keyword in Java?**
-    - `throws` is just used to indicated which exception is to be thrown. But the `throw` keyword is used to throw some exception from any static block or any method.
+
+    - `throws` is just used to indicated which exception is to be thrown.
+    - `throw` keyword is used to throw some exception from any static block or any method.
 
 * **What does the `static` word mean in Java?**
     - In case of `static` variable it means that this variable (its' value or the object it references) spans across all instances of enclosing class (changing it in one instance affects all others), while in case of `static` methods it means that these methods can be invoked without an instance of their enclosing class. It is useful, for example, when you create util classes that need not be instantiated every time you want to use them.
@@ -1661,70 +1724,291 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What is Dependency Injection?** [Learn from here](https://www.youtube.com/watch?v=Grzqz-B3NWU)
 
+    - Dependency Injection is a technique in which an object receives other objects that it depends on. These other objects are called dependencies.
+
 * **How is a `StringBuilder` implemented to avoid the immutable string allocation problem?** - [Learn from here](https://stackoverflow.com/questions/54023816/how-is-a-stringbuilder-implemented-to-avoid-the-immutable-string-allocation-prob)
+
+    - Behind the scene it uses a `char[]` (or `byte[]` in JDK 9 or newer) to store the characters. New String object is created only after calling `StringBuilder.toString()`.
 
 * **Difference between `StringBuffer` and `StringBuilder`?** - [Learn from here](https://www.journaldev.com/538/string-vs-stringbuffer-vs-stringbuilder)
 
+    - StringBuffer is Thread-Safe.
+    - StringBuffer is synchronized.
+    - StringBuffer is slower.
+    - StringBuilder is not Thread-Safe.
+    - StringBuilder is not synchronized.
+    - StringBuilder is faster.
+
 * **What is the difference between fail-fast and fail-safe iterators in Java?**
-    - Fail-safe iterator will not throw any exception even if the collection is modified while iteration over it. But in Fail-safe iterator, it throws a ConcurrentModificationException when you try to modify the collection while using it.
+    - Fail-fast iterator will not throw any exception even if the collection is modified while iterating over it. But in fail-safe iterator, it throws a `ConcurrentModificationException` when you try to modify the collection while using it.
 
 * **What is Java NIO?** - [Learn from here](https://en.wikipedia.org/wiki/Non-blocking_I/O_(Java))
+
+    - Non-blocking I/O is a collection of Java programming language APIs that offer features for intensive I/O operations.
 
 * **Monitor and Synchronization** - [Learn from here](https://www.youtube.com/watch?v=oLTw1aJpSho)
 
 * **Tell some advantages of Kotlin.** - [Learn from here](https://www.youtube.com/watch?v=kRhivT-jKzY&t=16s)
 
+    Kotlin advantages:
+    - concise
+    - null-safe
+    - interoperable
+    - data classes
+    - coroutines
+    - extension functions
+
 * **What is the difference between `val` and `var`?** - [Learn from here](https://stackoverflow.com/questions/44200075/val-and-var-in-kotlin)
+
+    - `val` is a read-only property and it can only be accessed by a getter. `val` is immutable.
+    - `var` is a read-and-write property, so it can be accessed not only by a getter but a setter as well. `var` is mutable.
 
 * **What is the difference between `const` and `val`?** - [Learn from here](https://blog.mindorks.com/what-is-the-difference-between-const-and-val)
 
+    - `consts` are compile time constants. Meaning that their value has to be assigned during compile time, unlike `val`s, where it can be done at runtime.
+    - `consts` can never be assigned to a function or any class constructor, but only to a String or primitive.
+
 * **How to ensure `null` safety in Kotlin?** - [Learn from here](https://blog.mindorks.com/safecalls-vs-nullchecks-in-kotlin)
+
+    By using the safe call operator, written as `?.`
+
+    ```
+    val b: String? = null
+    println(b?.length)
+    ```
 
 * **When to use `lateint` keyword used in Kotlin?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-lateinit-vs-lazy)
 
+    `lateinit` means late initialization.
+
+    `lateinit var questionTextView: TextView`
+
+    Using `lateinit`, the initial value does not need to be assigned. Furthermore, at the use sites the questionTextView is not a nullable type, so `?.` and `!!` are not used. However, we have to be careful to assign our lateinit var a value before we use it. Otherwise, a lateinit property acts as if we performed `!!`: it will crash the app on a null value.
+
 * **How to check if a `lateinit` variable has been initialized?** - [Learn from here](https://blog.mindorks.com/how-to-check-if-a-lateinit-variable-has-been-initialized)
+
+    You can use `isInitialized` on the variable.
+
+    `if (myVariable.isInitialized) // do work `
 
 * **How to do lazy initialization of variables in Kotlin?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-lateinit-vs-lazy) and [here](https://www.youtube.com/watch?v=yEX9_PeNRy4)
 
+    `lazy` is lazy initialization.
+
+    `lazy()` is a function that takes a lambda and returns an instance of lazy which can serve as a delegate for implementing a lazy property: the first call to `get()` executes the lambda passed to `lazy()` and remembers the result, subsequent calls to `get()` simply return the remembered result.
+
 * **What are `companion objects` in Kotlin?** - [Learn from here](https://blog.mindorks.com/companion-object-in-kotlin)
+
+    In Kotlin, if you want to write a function or any member of the class that can be called without having the instance of the class then you can write the same as a member of a companion object inside the class.
+
+    ```
+    class ToBeCalled {
+        companion object Test {
+            fun callMe() = println("You are calling me :)")
+        }
+    }
+
+    fun main(args: Array<String>) {
+        ToBeCalled.callMe()
+    }
+    ```
 
 * **What are the visibility modifiers in Kotlin?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-visibility-modifiers-private-protected-internal-public)
 
+    There are 4 visibility modifiers:
+    - `private`: visible inside that particular class or file containing the declaration.
+    - `protected`: visible inside that particular file containing the declaration and also in the subclass of that particular class.
+    - `internal`: visible everywhere in that particular module. The internal modifier is beneficial only when we have more than one module in a project.
+    - `public`: visible to everyone. By default, the visibility modifier in Kotlin is set to public.
+
 * **What is the equivalent of Java static methods in Kotlin?** - [Learn from here](https://blog.mindorks.com/what-is-the-equivalent-of-java-static-methods-in-kotlin)
+
+    - Using a `companion object`.
+    - Using `object`.
+    - Using a package-level function (think extension functions).
 
 * **What is a data class in Kotlin?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-data-class)
 
+    Fundamentally, Data Class is a simple class that is used to hold data or state, and includes standard functionality. 
+
+    Requirements for data classes:
+    - The primary constructor of a Data Class needs to have at least one parameter.
+    - Each parameter of the primary constructor must be val or var.
+    - Data classes cannot be marked as abstract, sealed, open, or inner.
+    - This type of class can inherit another class, and it can implement an interface.
+
+    The compiler automatically derives the following members from all properties declared in the primary constructor:
+
+    - equals()/hashCode() pair;
+    - toString() of the form "User(name=John, age=42)";
+    - componentN() functions corresponding to the properties in their order of declaration;
+    - copy() function (see below).
+
 * **How to create a Singleton class in Kotlin?** - [Learn from here](https://blog.mindorks.com/how-to-create-a-singleton-class-in-kotlin)
+
+    By marking a class with the `object` keyword.
+
+    ```
+    object SingletonClass {
+
+    }
+    ```
 
 * **What is the difference between `open` and `public` in Kotlin?** - [Learn from here](https://blog.mindorks.com/understanding-open-keyword-in-kotlin)
 
-* **Explain the use-case of `let`, `run`, `with`, `also`, `apply` in Kotlin.** - [Learn from here](https://blog.mindorks.com/using-scoped-functions-in-kotlin-let-run-with-also-apply) and [here](https://www.youtube.com/watch?v=AiFBEH54Xpw)
+    - `open` is opposite to `Final` in Java. You use this to mark a class as inheritable. If the class is not 'open', it can't be inherited.
+    - `public` is a visibility modifier and everything without access modifiers is by default public in Kotlin.
+
+* **Explain the use-case of `let`, `run`, `also`, `apply`, and `with` in Kotlin.** - [Learn from here](https://blog.mindorks.com/using-scoped-functions-in-kotlin-let-run-with-also-apply) and [here](https://www.youtube.com/watch?v=AiFBEH54Xpw)
+
+    - `let` takes the object it is invoked upon as the parameter and returns the result of the lambda expression. It can be chained or nested and is great for null checks such as `myObj?.let { // do something }`
+    ```
+    var str = "Hello World"
+    str.let { println("$it!!") } 
+    ```
+    - `run` expression can change the outer property. Similar to the `let` function, the `run` function also returns the last statement. However, unlike `let`, the `run` function doesn’t support the `it` keyword.
+    - `also` expressions does some additional processing on the object it was invoked. Unlike `let`, it returns the original object instead of any new return data. Hence the return data has always the same type.
+    - `apply` is an extension function on a type. It runs on the object reference (also known as receiver) into the expression and returns the object reference on completion. Such as `person.apply { this.tutorial = "Swift" }`
+    - `with` is used to change instance properties without the need to call dot operator over the reference every time.
+    ```
+    with(person)
+    {
+        name = "No Name"
+        tutorial = "Kotlin tutorials"
+    }
+    ```
 
 * **Difference between List and Array types in Kotlin** - [Learn from here](https://blog.mindorks.com/difference-between-list-and-array-types-in-kotlin)
 
+    The major difference from usage side is that `Arrays` have a fixed size while (Mutable) `List` can adjust their size dynamically. Moreover Array is mutable whereas List is not.
+
 * **What are `Labels` in Kotlin?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-returns-jumps-labels)
+
+    Any expression in Kotlin may be marked with a `label`. Labels have the form of an identifier followed by the @ sign, for example: abc@, fooBar@ are valid labels.
+
+    For example, below allows you to reference the labeled loop (first loop) and break out of it.
+    ```
+    loop@ for (i in 1..100) {
+        for (j in 1..100) {
+            if (...) break@loop
+        }
+    }
+    ```
 
 * **What is an `Init` block in Kotlin?** - [Learn from here](https://blog.mindorks.com/understanding-init-block-in-kotlin)
 
+    Code inside an `init` block is the first to be executed when the class is instantiated and the `init` block is run every time the class is instantiated.
+
+    ```
+    MyClass {
+        init {
+            // some code
+        }
+    }
+    ```
+
 * **Explain `pair` and `triple` in Kotlin.** - [Learn from here](https://blog.mindorks.com/pair-and-triple-in-kotlin)
+
+    - `Pair` is a predefined class in Kotlin that is used to store and return two variables at a time. The two variables can be of different type.
+    - `Triple` is a predefined class in Kotlin that is used to store and return 3 variables of same or different type. 
 
 * **How to choose between `apply` and `with`?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-apply-vs-with)
 
+    There are mainly two differences between them:
+    - `apply` accepts an instance as the receiver while `with` requires an instance to be passed as an argument. In both cases the instance will become `this` within a block.
+    - `apply` returns the receiver and `with` returns a result of the last expression within its block.
+
+    ```
+    // apply
+    fun getDeveloper(): Developer {
+        return Developer().apply {
+            developerName = "Amit Shekhar"
+            developerAge = 22
+        }
+    } 
+
+    // with
+    fun getPersonFromDeveloper(developer: Developer): Person {
+        return with(developer) {
+            Person(developerName, developerAge)
+        }
+    }     
+    ```
+
 * **How to choose between `switch` with `when`?** - [Learn from here](https://blog.mindorks.com/replace-switch-with-when-in-kotlin)
+
+    - `switch` doesn't exist in Kotlin.
+    - `when` can be used as a `switch` replacement and can be used without an argument. In such case it acts as a nicer `if-else` chain. The key thing to remember with `when` is that the first branch that matches is chosen and it does not cascade.
 
 * **What are Coroutines in Kotlin?** - [Learn from here](https://blog.mindorks.com/mastering-kotlin-coroutines-in-android-step-by-step-guide)
 
+    Coroutines allow you to write asynchronous code in a sequential fashion.
+
 * **What is Coroutine Scope?** - [Learn from here](https://blog.mindorks.com/mastering-kotlin-coroutines-in-android-step-by-step-guide)
+
+    CoroutineScope is the interface that define the concept of Scope with Coroutines, to execute a coroutine using `launch` or `async` you need a scope.
+
+    - a coroutine must run in a scope
+    - it is a way to keep track of all coroutines that run in it
+    - all (cooperative) coroutines can be cancelled via their scope
+    - scopes get uncaught exceptions
+    - they are a way to bind coroutines to an application specific lifecycle (e.g. viewModelScope in Android) to avoid leaking
 
 * **What is Coroutine Context?** - [Learn from here](https://blog.mindorks.com/mastering-kotlin-coroutines-in-android-step-by-step-guide)
 
+    The context determines on which thread the coroutines will run. There are four options:
+    - Dispatchers.Default - for CPU intense work (e.g. sorting a big list)
+    - Dispatchers.Main - what this will be depends on what you've added to your programs runtime dependencies (e.g. kotlinx-coroutines-android, for the UI thread in Android)
+    - Dispatchers.Unconfined - runs coroutines unconfined on no specific thread
+    - Dispatchers.IO - for heavy IO work (e.g. long-running database queries)
+
 * **Launch vs Async in Kotlin Coroutines** - [Learn from here](https://www.youtube.com/watch?v=nC30UiDv8Xc)
+
+    - `launch` starts a background thread, does something, and returns a token immediately as `Job` (think fire and forget). You can call `join` on this `Job` to block until this `launch` thread completes.
+    - `async` starts a background thread, does something, and returns a token immediately as `Deferred` (think fire and wait for result). You can use `.await()` on a deferred value to get its eventual result, but `Deferred` is also a `Job`, so you can cancel it if needed.
 
 * **What is inline function in Kotlin?** - [Learn from here](https://blog.mindorks.com/understanding-inline-noinline-and-crossinline-in-kotlin)
 
+    Inline function instructs the compiler to insert the complete body of the function wherever that function got called in the code.
+
 * **When to use Kotlin sealed classes?** - [Learn from here](https://blog.mindorks.com/learn-kotlin-sealed-classes)
 
+    Sealed classes are used for representing restricted class hierarchies, when a value can have one of the types from a limited set, but cannot have any other type. They are, in a sense, an extension of enum classes.
+
+    - Sealed classes are abstract and can have abstract members.
+    - Sealed classes cannot be instantiated directly.
+    - Sealed classes cannot have public constructors (the constructors are private by default).
+    - Sealed classes can have subclasses, but they must either be in the same file or nested inside of the sealed class declaration.
+    - Sealed classes subclass can have subclasses outside of the sealed class file.
+
+    An example use case for sealed classes is representing a UI state.
+
+    ```
+    sealed class UiState()
+    class Loading() : UiState()
+    class Display() : UiState()
+    ```
+    
+    Usage:
+    ```
+    when (uiState) {
+        is UiState.Loading -> showLoadingProgressView()
+        is UiState.Display -> showContent()
+    }
+    ```
+
 * **Explain function literals with receiver in Kotlin?** - [Learn from here](https://blog.mindorks.com/function-literals-with-receiver-in-kotlin)
+
+    Closely related to the extension function is the function literal with receiver. There are two types of function literals:
+    - lambda
+    - anonymous function
+
+    Where with extension functions you can add a new member function to an existing class, with a function literal with receiver you can access the member functions of an existing class inside the lambda block (inside the curly braces {}).
+
+    For example:
+    ```
+    val lambdaAppendMonkey: StringBuilder.() -> StringBuilder = { this.append("monkey") }
+    ```
 
 * **Tell about Kotlin DSL.** - [Learn from here](https://blog.mindorks.com/mastering-kotlin-dsl-in-android-step-by-step-guide)
 
