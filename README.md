@@ -2012,11 +2012,123 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **Tell about Kotlin DSL.** - [Learn from here](https://blog.mindorks.com/mastering-kotlin-dsl-in-android-step-by-step-guide)
 
+    What is a DSL?
+    - A domain-specific language (DSL) is a computer language specialized to a particular application domain. This is in contrast to a general-purpose language (GPL), which is broadly applicable across domains.
+    - DSLs are used to simplify, improve the complexity of code, and make it more readable.
+
+    A `forEach` in kotlin is an example of DSL:
+    ```
+    yourlist.forEach { 
+        //your code is here
+    }
+    ```
+
+    Or using the `.apply` operator:
+    ```
+     textView.apply {
+         text = "Test"
+     }
+    ```
+
 * **What are higher-order functions in Kotlin?** - [Learn from here](https://blog.mindorks.com/understanding-higher-order-functions-and-lambdas-in-kotlin)
+
+    A higher-order function is a function that takes functions as parameters or returns a function. It's a function which can take do two things:
+    - Take functions as parameters
+    - Return a function
+
+    Below takes a function and executes it:
+    ```
+    fun passMeFunction(abc: () -> Unit) {
+        // I can take function
+        // do something here
+        // execute the function
+        abc()
+    }
+
+    // explanation
+    - funcParam: () -> Unit, is how you define that it takes a function as a param.
+    - In the above example, "abc" is just a parameter name.
+    - In () -> Unit, "()" means that the function being takes no params.
+    - In () -> Unit, "Unit" means that the function does not return anything.
+    ```
+
+    Below a function takes a function and returns it:
+    ```
+    // normal function
+    fun add(a: Int, b: Int): Int {
+        return a + b
+    }
+
+    // function returns a function
+    fun returnMeAddFunction(): ((Int, Int) -> Int) {
+        // can do something and return function as well
+        // returning function
+        return ::add
+    }
+
+    // explanation
+    - As you can see the return type of the returnMeAddFunction() says that
+    it will return a function that takes two Int params and returns an Int.
+    - In ((Int, Int) -> Int), "(Int, Int)" means that the function should take two params as Int.
+    - In ((Int, Int) -> Int), "Int" means that the function will return a value as an Int.
+
+    // usage sample
+    val add = returnMeAddFunction()
+    val result = add(2, 2)
+    ```
 
 * **What are Lambdas in Kotlin** - [Learn from here](https://blog.mindorks.com/understanding-higher-order-functions-and-lambdas-in-kotlin)
 
+    Lambdas expressions are essentially anonymous functions that we can treat as values – we can, for example, pass them as arguments to functions, return them, or do any other thing we could do with a normal object.
+
+    Lambda Expressions look like below:
+    ```
+    val square : (Int) -> Int = { value -> value * value }
+
+    // usage
+    val nine = square(3)
+
+    // explanation
+    In (Int) -> Int, the "(Int)" represents input Int as a parameter.
+    In (Int) -> Int, the "-> Int" represents the return type.
+    ```
+
+    Another example:
+    ```
+    val add : (Int, Int) -> Int = { a, b -> a + b }
+
+    // explanation
+    (Int, Int) -> Int, this means that it takes two Int as input and returns an Int.
+    ```
+
 * **Tell about the Collections in Kotlin** - [Learn from here](https://www.youtube.com/watch?v=XeRt2ZZ-jkA)
+
+    Collections available in Kotlin are:
+
+    Immutable
+    - List
+    - Map
+    - Set
+
+    Mutable
+    - MutableList
+    - MutableMap
+    - MutableSet
+
+    A Mutable collection can be mutated after it has been created, whereas an immutable collection cannot be mutated after it is created.
+
+    Example:
+    ```
+    // # Mutable
+    val mutableList: MutableList<String> = mutableListOf("A", "B")
+    mutableList.add("C") // this works and adds to the list above
+
+    // # Immutable
+    val immutableList: List<String> = listOf("A", "B")
+    // .add() does not exist for this list and the compiler will complain
+    // instead we must use plus(), which creates a new list and adds to it
+    val newImmutableList = immutableList.plus("C")
+    ```
 
 ### Data Structures And Algorithms
 
