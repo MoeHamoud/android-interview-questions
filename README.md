@@ -2082,7 +2082,7 @@ We use custom views to make the UI component re-usable and to add new interactio
 
 * **What are Lambdas in Kotlin** - [Learn from here](https://blog.mindorks.com/understanding-higher-order-functions-and-lambdas-in-kotlin)
 
-    Lambdas expressions are essentially anonymous functions that we can treat as values – we can, for example, pass them as arguments to functions, return them, or do any other thing we could do with a normal object.
+    Lambda expressions are essentially anonymous functions that we can treat as values – we can, for example, pass them as arguments to functions, return them, or do any other thing we could do with a normal object.
 
     Lambda Expressions look like below:
     ```
